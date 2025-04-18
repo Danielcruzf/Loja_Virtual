@@ -15,5 +15,6 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.(Middleware)
 app.MapControllers();
+DbInitializer.InitDb(app);
 
 app.Run();
