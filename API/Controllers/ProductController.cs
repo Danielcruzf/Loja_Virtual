@@ -2,6 +2,7 @@ using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -11,15 +12,15 @@ namespace API.Controllers
     {
         [HttpGet]
 
-        public ActionResult<List<Product>> GetProduct()// retorna os produtos 
+        public async Task< ActionResult<List<Product>>> GetProduct()// retorna os produtos 
         { // verifica o banco de dados
-            return context.Products.ToList();
+            return await context.Products.ToListAsync();
         }
 
         [HttpGet ("{id}")]
-        public ActionResult<Product>GetProduct(int id)// retorna os produtos pelo id
+        public async Task<ActionResult<Product>> GetProduct(int id)// retorna os produtos pelo id
         {    //verifica os produtos 
-            var product = context.Products.Find(id);
+            var product = await context.Products.FindAsync(id);
            //verifica se o PRODUTO É NULL caso seja retona NotFoud na tela
             if(product== null) return NotFound(); 
             return product;
