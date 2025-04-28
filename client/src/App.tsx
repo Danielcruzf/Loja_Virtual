@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 function App() {
   const [products, setProducts] = useState<{name:string,price:number}[]>([]);// o useEffect é um hook que permite executar efeitos colaterais em componentes funcionais
   useEffect(() => {
-    fetch('http://localhost:5001/api/products')
+    fetch('https://localhost:5001/api/product')
       .then((response) => response.json())
       .then((data) => setProducts(data));
       
