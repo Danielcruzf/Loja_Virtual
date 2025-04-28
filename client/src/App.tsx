@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 function App() {
-  const [products, setProducts] = useState([
-    { name: 'product 1', price: 100 },
-    { name: 'product 2', price: 200 },
-    { name: 'product 3', price: 300 }
-  ])
+  const [products, setProducts] = useState<{name:string,price:number}[]>([]);// o useEffect é um hook que permite executar efeitos colaterais em componentes funcionais
+  useEffect(() => {
+    fetch('http://localhost:5001/api/products')
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      
+      
+  }, []);
+    
   // o useState é um hook que permite adicionar estado a um componente funcional
   // o useState retorna um array com dois elementos, o primeiro é o estado atual e o segundo é uma função para atualizar o estado.
   const addProduct =() => {setProducts(prevState=>[...prevState, { name: 'product '+(prevState.length+1), price:(prevState.length*100)+100}])}
