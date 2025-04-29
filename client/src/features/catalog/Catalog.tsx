@@ -5,14 +5,14 @@ type Props = {
   addProduct: () => void;
 }
 
-export default function Catalog(props: Props) {
+export default function Catalog({products, addProduct} : Props) {
   return (
     <>
       <ul>
-        {props.products.map((item => (
+        {products.map((item => (
           <li key={item.id}>{item.name} - {item.price}</li>)))}
       </ ul>
-      <button onClick={props.addProduct}>Adicionar produto</button>
+      <button onClick={addProduct}>Adicionar produto</button>
     </>
   )
 }
