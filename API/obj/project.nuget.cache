@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QkJPnjJDgK8=",
+  "dgSpecHash": "4nnxFfmXl5c=",
   "success": true,
-  "projectFilePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\microsoft.build\\17.7.2\\microsoft.build.17.7.2.nupkg.sha512",
