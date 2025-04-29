@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Product } from "./product"; // importando o tipo Product do arquivo product.ts
+import { Product } from "../models/product"; // importando o tipo Product do arquivo product.ts
 function App() {
   const [products, setProducts] = useState<Product []>([]);// o useEffect é um hook que permite executar efeitos colaterais em componentes funcionais
   useEffect(() => {
