@@ -1,22 +1,22 @@
 import { Product } from "../../app/models/product"
-import { Button } from "@mui/material"
+import ProductList from "./productList";
 
 
 type Props = {
   products: Product[];
-  addProduct: () => void;
+  
+  
 }
 
-export default function Catalog({products, addProduct} : Props) {
+export default function Catalog({products} : Props) {
 
   return (
     <>
-    <ul>
-      {products.map(item => (
-          <li key={item.id}>{item.name} - {item.price}</li>
-          ))}
-      </ ul>
-      <Button variant="contained" onClick={addProduct}>Adicionar produto</Button>
+    <ProductList products={products} addProduct={function (): void {
+        throw new Error("Function not implemented.")
+        // function implemntada para retirar erro de compilação
+      } }/>
+       
 
     </>
   )
