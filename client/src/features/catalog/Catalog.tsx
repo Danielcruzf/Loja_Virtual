@@ -1,23 +1,20 @@
+import { useEffect, useState } from "react";
 import { Product } from "../../app/models/product"
 import ProductList from "./ProductList";
 
-
-type Props = {
-  products: Product[];
-  
-  
-}
-
-export default function Catalog({products} : Props) {
+export default function Catalog() {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    fetch('https://localhost:5001/api/product')
+      .then((response) => response.json())
+      .then((data) => setProducts(data));
+  }, []);
 
   return (
     <>
-    <ProductList products={products} addProduct={function (): void {
-        throw new Error("Function not implemented.")
-        // function implemntada para retirar erro de compilação
-      } }/>
-       
-
+      <ProductList products={products} addProduct={function (): void {
+        throw new Error("Function not implemented.");
+      } } />
     </>
   )
 }
