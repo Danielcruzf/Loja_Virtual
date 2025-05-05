@@ -1,5 +1,5 @@
 import { Product } from "../../app/models/product"
-import ProductList from "./productList";
+import ProductList from "./ProductList";
 
 
 type Props = {
