@@ -1,9 +1,10 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
-import { Product } from "../../app/models/product"
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Product } from "../../app/models/product";
 
 type Props = {
-    product: Product
-}
+    product: Product;
+};
 
 export default function ProductCard({ product }: Props) {
     return (
@@ -14,9 +15,9 @@ export default function ProductCard({ product }: Props) {
                 borderRadius: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}>
-            
+                justifyContent: 'space-between',
+            }}
+        >
             <CardMedia
                 sx={{ height: 240, BackgroudSize: 'cover' }}
                 image={product.pictureUrl}
@@ -25,22 +26,22 @@ export default function ProductCard({ product }: Props) {
             <CardContent>
                 <Typography
                     gutterBottom
-                    sx={{ textTransform: 'uppercase' }} variant="subtitle2">{product.name}
+                    sx={{ textTransform: 'uppercase' }}
+                    variant="subtitle2"
+                >
+                    {product.name}
                 </Typography>
 
-                <Typography
-                    variant="h5"
-                    sx={{ color: 'secondary.main' }}>
+                <Typography variant="h5" sx={{ color: 'secondary.main' }}>
                     $ {(product.price / 100).toFixed(2)}
                 </Typography>
-            </CardContent >
-            <CardActions
-                sx={{ justifyContent: 'space-between' }}>
+            </CardContent>
+            <CardActions sx={{ justifyContent: 'space-between' }}>
                 <Button>ADD TO CARD</Button>
-                <Button>VIEW</Button>
-
+                <Button component={Link} to={`/catalog/${product.id}`}>
+                    VIEW
+                </Button>
             </CardActions>
-
         </Card>
-    )
+    );
 }
