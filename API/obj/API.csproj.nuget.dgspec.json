@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj": {}
+    "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj": {
+    "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj",
+        "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
         "packagesPath": "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\obj\\",
+        "outputPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

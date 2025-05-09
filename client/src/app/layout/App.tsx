@@ -1,46 +1,47 @@
-import { useState } from "react";
-import { Box, Container, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import NavBar from "./NavBar";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Product } from "../models/product";
+import Catalog from "../../features/catalog/Catalog";
+import { Box, Container, createTheme } from "@mui/material";
+
 
 function App() {
-  
-  const [darkMode, setDarkMode] = useState(false);
-  const palleteType = darkMode ? 'dark' : 'light'
-  const theme = createTheme({
-    palette: {
-      mode: palleteType,
-      background: {
-        default: (palleteType === 'light') ? '#eaeaea' : '#121212'
+  const darkMode = false;
+  const palleteType = darkMode ? "dark" : "light"
+  const theme = createTheme(
+    {
+      palette:
+      {
+        mode: palleteType,
+        background:
+        {
+          default: (palleteType === "light") ? "#eaeaea" : "#121212",
+        }
       }
     }
-  })
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  }
-
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          background: darkMode ? 'radial-gradient(circle, #1e3aBa, #111B27)' : 'radial-gradient(circle, #baecf9, #f0f9ff)',
-        py: 2
-        
-        }}
-      >
-        <Container maxWidth="xl" sx={{ mt: 12 }}>
-          <Outlet />
-        </Container>
-      </Box>
-
-
-
-    </ThemeProvider> 
-
-  )
 }
+
+useEffect(() => {
+  fetch("https://localhost:5001/api/product")
+    .then((response) => response.json())
+    .then((data) => setProducts(data));
+}, []);
+
+return (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <NavBar />
+    <Box sx={{
+      minHeight: "100vh",
+      background: darkMode ?
+        'radial-gradient(circle,rgb(188, 193, 213)),rgb(195, 201, 208))' :
+        'radial-gradient(circle,rgb(200, 194, 216),rgb(33, 10, 148))', py:6
+    }} >
+      <Container maxWidth="xl" sx={{ mt: 8 }}>
+        <Catalog products={products} />
+      </Container>
+    </Box>
+  </ThemeProvider>
+)
+
 
 export default App;
