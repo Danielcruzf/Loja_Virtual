@@ -5,15 +5,10 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { RouterProvider } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom';
 import { routes } from './app/routes/Routes';
-import { configureStore } from './app/store/Stores'
 import { Provider } from 'react-redux';
-const store = configureStore();
-
-console.log(store.getState());
-
-
+import { store } from './app/store/Stores';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
