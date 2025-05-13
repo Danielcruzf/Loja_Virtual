@@ -1,7 +1,7 @@
 import {configureStore, legacy_createStore } from "@reduxjs/toolkit";
 import counterReducer, { counterSlice } from "../../features/contact/counterReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/query";
+
 
 export function configuretheStore() {
     return legacy_createStore(counterReducer);
