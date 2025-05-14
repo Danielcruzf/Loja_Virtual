@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/store/Stores";
-import {  decrement, increment } from "./counterReducer"
+import {  decrement, increment } from "./CounterReducer"
 import { Button, ButtonGroup, Typography } from "@mui/material"
 
 export default function ContactPage() {
