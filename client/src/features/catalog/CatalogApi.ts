@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { Product } from '../../app/models/product';
-import { baseQueryWithErrorHandling } from '../../app/api/baseAoi';
+import { baseQueryWithErrorHandling } from '../../app/api/baseApi';
 
 // Especificando como deve ser feita a busca
 export const catalogApi = createApi({
