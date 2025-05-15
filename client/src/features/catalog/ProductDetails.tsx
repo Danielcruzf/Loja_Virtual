@@ -1,20 +1,13 @@
-import { useEffect, useState } from "react";
+import { Button, Divider, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Product } from "../../app/models/product";
-import { Button, Divider, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from "@mui/material";
-import { Grid } from "@mui/material";
+import { useFetchProductDetailsQuery } from "./CatalogApi";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
-  useEffect(() => {
-    fetch(`https://localhost:5001/api/product/${id}`)
-      .then(response => response.json())
-      .then(data => setProduct(data))
-      .catch(error => console.log(error))
-  }, [id]);
-
-  if (!product) return <div>Loading...</div>;
+  
+  const { data: product, isLoading } = useFetchProductDetailsQuery(id ? +id : 0);
+  
+  if (!product || isLoading) return <div>calma! Nasceu de 7 meses?</div>;
 
   const productDetails = [
 
@@ -38,7 +31,7 @@ export default function ProductDetails() {
           ${(product.price / 100).toFixed(2)}
         </Typography>
         <TableContainer>
-          <Table sx={{ "& td": { fontSize:"1rem"} }}>
+          <Table sx={{ "& td": { fontSize: "1rem" } }}>
             <TableBody>
               {productDetails.map((detail, index) => (
                 <TableRow key={index}>
@@ -62,7 +55,7 @@ export default function ProductDetails() {
             />
           </Grid>
           <Grid size={6}>
-            <Button sx={{height:"60px"}} color="primary" size="large" variant="contained" fullWidth>
+            <Button sx={{ height: "60px" }} color="primary" size="large" variant="contained" fullWidth>
               ADD TO CART
             </Button>
           </Grid>

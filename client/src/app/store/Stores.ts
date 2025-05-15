@@ -13,9 +13,10 @@ export function configuretheStore() {
         counter: counterSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(catalogApi.middleware),
+        getDefaultMiddleware().concat(catalogApi.middleware)
+    // essa linha adiciona o middleware do RTK Query
 });
-export type RootState = ReturnType<typeof store.getState>
+export type RootState =  ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()

@@ -1,15 +1,15 @@
 import ProductList from "./ProductList";
-import { useFetchProductsQuery } from "./CatalogApi";
+import { useFetchProductQuery } from "./CatalogApi";
 
 export default function Catalog() {
-  const{data, isLoading}=useFetchProductsQuery();
-  if(isLoading||!data) return <div>Loading.....</div>
+  const{data, isLoading}=useFetchProductQuery();
+  if(isLoading||!data) return <div>calma! Nasceu de 7 meses?</div>
 
   return (
     <>
       <ProductList products={data} addProduct={function (): void {
         throw new Error("Function not implemented.");
-      } }      />
+      }}/>
     </>
   )
 }

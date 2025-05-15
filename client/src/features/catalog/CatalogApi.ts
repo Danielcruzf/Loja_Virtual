@@ -3,19 +3,17 @@ import { Product } from '../../app/models/product';
 
 // Especificando como deve ser feita a busca
 export const catalogApi = createApi({
-  reducerPath: 'catalogApi', // Nome do slice (ajustei para seguir boas práticas)
+  reducerPath: 'catalogApi', 
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://localhost:5001/api',
   }),
   endpoints: (builder) => ({
-    fetchProducts: builder.query<Product[], void>({
-      query: () => ({url:'product'}), // Retorno direto, pois não há necessidade de objeto extra
+    fetchProduct: builder.query<Product[], void>({
+      query: () => ({url:'product  '}),
     }),
     fetchProductDetails: builder.query<Product, number>({
-      query: (productId) => `products/${productId}`, // Retorno direto
+      query: (productId) => `product/${productId}`, 
     }),
   }),
 });
-
-// Exportação correta dos hooks gerados pelo RTK Query
-export const { useFetchProductsQuery, useFetchProductDetailsQuery } = catalogApi;
+export const { useFetchProductQuery, useFetchProductDetailsQuery } = catalogApi;
