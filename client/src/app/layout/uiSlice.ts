@@ -1,15 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const uiSlice=createSlice({name: "ui", 
-    initialState:{
-        isLoading:false
-    }, 
-    reducers:{
-    StartLoading:(state)=>{
-        state.isLoading=true;
+const getInitialDarkMode = () => {
+    const storedDarkMode = localStorage.getItem('darkMode');
+    return storedDarkMode ? JSON.parse(storedDarkMode) : true
+}
+export const uiSlice = createSlice({
+    name: "ui",
+    initialState: {
+        isLoading: false,
+        darkMode: getInitialDarkMode()
     },
-    StopLoading:(state)=>{
-        state.isLoading=false;
+    reducers: {
+        StartLoading: (state) => {
+            state.isLoading = true;
+        },
+        StopLoading: (state) => {
+            state.isLoading = false;
+        },
+        setDarkMode: (state) => {
+            localStorage.setItem('darkMode', JSON.stringify(!state.darkMode));
+            state.darkMode = !state.darkMode
+            
+        }
     }
-}});
-export const {StartLoading, StopLoading} = uiSlice.actions;
+});
+export const { StartLoading, StopLoading, setDarkMode } = uiSlice.actions; 
