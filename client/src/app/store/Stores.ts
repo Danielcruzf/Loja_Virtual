@@ -3,6 +3,7 @@ import counterReducer, { counterSlice } from "../../features/contact/CounterRedu
 import { useDispatch, useSelector } from "react-redux";
 import { catalogApi } from "../../features/catalog/CatalogApi";
 import { uiSlice } from "../layout/uiSlice";
+import { errorApi } from "../../features/about/erroApi";
 
 
 export function configuretheStore() {
@@ -11,11 +12,12 @@ export function configuretheStore() {
  export const store = configureStore({
     reducer: {
         [catalogApi.reducerPath]: catalogApi.reducer,
+        [errorApi.reducerPath]: errorApi.reducer,
         counter: counterSlice.reducer,
         ui: uiSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(catalogApi.middleware)
+        getDefaultMiddleware().concat(catalogApi.middleware, errorApi.middleware), 
     // essa linha adiciona o middleware do RTK Query
 });
 export type RootState =  ReturnType<typeof store.getState>
