@@ -27,5 +27,6 @@ export const
     useGet400ErrorQuery, 
     useGet401ErrorQuery, 
     useGet404ErrorQuery, 
-    useGet500ErrorQuery, useGetValidationErrorQuery 
+    useGet500ErrorQuery, 
+    useGetValidationErrorQuery 
 } = errorApi;

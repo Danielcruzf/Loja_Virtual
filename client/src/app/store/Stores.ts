@@ -17,7 +17,7 @@ export function configuretheStore() {
         ui: uiSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(catalogApi.middleware, errorApi.middleware), 
+        getDefaultMiddleware().concat(catalogApi.middleware, errorApi.middleware) 
     // essa linha adiciona o middleware do RTK Query
 });
 export type RootState =  ReturnType<typeof store.getState>
