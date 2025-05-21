@@ -27,40 +27,31 @@ const responseData = result.error.data as ErroResponse;
                 if (typeof responseData === 'string')toast.error(responseData);
                 else if('errors' in responseData)
                 {
-                throw Object.values(responseData.title).flat().join(',');
+                throw Object.values(responseData.errors).flat().join(',');
                 }
                 else toast.error(responseData.title);
                 break;
             case 401:
-                if (typeof responseData === 'string')toast.error(responseData);
+                 if (typeof responseData === 'string')toast.error(responseData);
                 else if('errors' in responseData)
                 {
-                toast.error('validation error');
+                throw Object.values(responseData.errors).flat().join(',');
                 }
                 else toast.error(responseData.title);
                 break;
+
                 case 404:
-                if (typeof responseData === 'string')toast.error(responseData);
-                else if('errors' in responseData)
-                {
-                toast.error('validation error');
-                }
-                else toast.error(responseData.title);
+                if (typeof responseData === 'object'&&'title' in responseData)toast.error(responseData.title)
                 break;
+                
                 case 500:
-                if (typeof responseData === 'string')toast.error(responseData);
-                else if('errors' in responseData)
-                {
-                toast.error('server-error');
-                }
-                else toast.error(responseData.title);
+                 if (typeof responseData === 'object'&&'title' in responseData)toast.error(responseData.title)
                 break;
             default:
                 break;
         }
 
-
-        return result;
+      
     }
 
     return result;
