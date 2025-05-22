@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QllED9R/7SY=",
+  "dgSpecHash": "4nnxFfmXl5c=",
   "success": true,
-  "projectFilePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\API.csproj",
+  "projectFilePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\microsoft.build\\17.7.2\\microsoft.build.17.7.2.nupkg.sha512",
@@ -51,9 +51,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "O pacote 'Microsoft.Build.Tasks.Core' 17.7.2 tem uma alta vulnerabilidade de gravidade conhecida, https://github.com/advisories/GHSA-h4j7-5rxr-p4wc",
-      "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\API.csproj",
+      "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\API.csproj",
+      "filePath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\api\\API.csproj",
       "libraryId": "Microsoft.Build.Tasks.Core",
       "targetGraphs": [
         "net10.0"
