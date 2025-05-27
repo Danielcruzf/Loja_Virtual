@@ -20,13 +20,13 @@ namespace API.Entities
                 Items.Add(new BasketItem
                 {
                     ProductId = product.Id,
-                    Product = product,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Product = product
                 });
             }
             else
             {
-                existingItem.Quantity += quantity; // Atualiza a quantidade do item já existente
+                existingItem.Quantity += quantity; // Corrigido: soma apenas a quantidade recebida
             }
         }
 

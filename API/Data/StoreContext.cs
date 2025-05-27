@@ -12,10 +12,5 @@ public class StoreContext(DbContextOptions options) : DbContext(options)
     //Tabela BasketItem
     public required DbSet<BasketItem> BasketItems { get; set; }
 
-   /* protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-    }
-    */
-    //Configuração do banco de dados
+   
 }
