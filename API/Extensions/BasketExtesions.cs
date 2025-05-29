@@ -2,8 +2,9 @@ using System;
 using System.Linq;
 using API.Controllers;
 using API.Entities;
+using API.DTOs;
 
-namespace API.Extensions
+namespace API.Extensions 
 {
     public static class BasketExtesions
     {
