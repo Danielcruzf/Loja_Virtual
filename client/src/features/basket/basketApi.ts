@@ -3,9 +3,10 @@ import { baseQueryWithErrorHandling } from '../../app/api/baseApi';
 import { Basket, Item } from '../../app/models/basket';
 import { Product } from '../../app/models/product';
 
-function isBasketItem(product:Product|Item):product is Item{
-   return (product as Item).quantity!==undefined;
+function isBasketItem(product: Product | Item): product is Item {
+    return (product as Item).quantity !== undefined;
 }
+
 export const basketApi = createApi({
     reducerPath: 'basketApi',
     baseQuery: baseQueryWithErrorHandling,
@@ -13,23 +14,26 @@ export const basketApi = createApi({
     endpoints: (builder) => ({
         fetchBasket: builder.query<Basket, void>({
             query: () => '/basket',
-            providesTags: ['Basket']
+            providesTags: ['Basket'],
         }),
-        addItemToBasket: builder.mutation<Basket, { product: Product |Item, quantity: number }>({
+        addBasketItem: builder.mutation<Basket, { product: Product | Item; quantity: number }>({
             query: ({ product, quantity }) => {
-                const productId=isBasketItem(product)?product.productId:product.id;
-                return{
+                const productId = isBasketItem(product) ? product.productId : product.id;
+                return {
                     url: `basket?productId=${productId}&quantity=${quantity}`,
-                method: 'POST'
-                }
+                    method: 'POST',
+                };
             },
             onQueryStarted: async ({ product, quantity }, { dispatch, queryFulfilled }) => {
                 const patchResult = dispatch(
                     basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
-                        const productId=isBasketItem(product)?product.productId:product.id;
-                        const existingItem = draft.items.find(item => Number(item.productId) === product.id);
-                        if (existingItem) existingItem.quantity += quantity;
-                        else draft.items.pushisBasketItem(product)? product: new Item(product, quantity));
+                        const productId = isBasketItem(product) ? product.productId : product.id;
+                        const existingItem = draft.items.find(item => Number(item.productId) === productId);
+                        if (existingItem) {
+                            existingItem.quantity += quantity;
+                        } else {
+                            draft.items.push(isBasketItem(product) ? product : new Item(product, quantity));
+                        }
                     })
                 );
                 try {
@@ -38,17 +42,17 @@ export const basketApi = createApi({
                     console.log(error);
                     patchResult.undo();
                 }
-            }
+            },
         }),
-        removeBasketItem: builder.mutation<void, { productId: number, quantity: number }>({
+        removeBasketItem: builder.mutation<void, { productId: number; quantity: number }>({
             query: ({ productId, quantity }) => ({
                 url: `basket?productId=${productId}&quantity=${quantity}`,
-                method: 'DELETE'
+                method: 'DELETE',
             }),
             onQueryStarted: async ({ productId, quantity }, { dispatch, queryFulfilled }) => {
                 const patchResult = dispatch(
                     basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
-                        const itemIndex = draft.items.findIndex(item =>Number( item.productId) === productId);
+                        const itemIndex = draft.items.findIndex(item => Number(item.productId) === productId);
                         if (itemIndex >= 0) {
                             draft.items[itemIndex].quantity -= quantity;
                             if (draft.items[itemIndex].quantity <= 0) {
@@ -63,9 +67,9 @@ export const basketApi = createApi({
                     console.log(error);
                     patchResult.undo();
                 }
-            }
-        })
-    })
+            },
+        }),
+    }),
 });
 
-export const { useFetchBasketQuery, useAddItemToBasketMutation, useRemoveBasketItemMutation } = basketApi;
+export const { useFetchBasketQuery, useAddBasketItemMutation, useRemoveBasketItemMutation } = basketApi;

@@ -1,7 +1,8 @@
 import { Box, Grid, IconButton, Paper, Typography } from "@mui/material"
 import { Item } from "../../app/models/basket"
 import { Add, Close, Remove } from "@mui/icons-material"
-import { useRemoveBasketItemMutation } from "./basketApi"
+import { useRemoveBasketItemMutation, useAddBasketItemMutation  } from "./basketApi"
+
 
 export type Props = {
 
@@ -9,6 +10,7 @@ export type Props = {
 }
 export default function BasketItem({ item }: Props) {
     const [removeBasketItem]=useRemoveBasketItemMutation();
+    const [addBasketItem]=useAddBasketItemMutation();
 
     return (
         <Paper sx={{
@@ -44,11 +46,12 @@ export default function BasketItem({ item }: Props) {
                     </Box>
                     <Grid container spacing={1} alignItems='center'>
                         <IconButton
-                        onClick={()=>removeBasketItem({productId: item.productId, quantity:1})} color="error" size="small" sx={{ border: 1, borderRadius: 1, minWidth: 0 }}>
+                        onClick={()=>removeBasketItem({productId: Number(item.productId), quantity:1})} color="error" size="small" sx={{ border: 1, borderRadius: 1, minWidth: 0 }}>
                             <Remove />
                         </IconButton>
                         <Typography variant="h6">{item.quantity}</Typography>
-                        <IconButton color="success" size="small" sx={{ border: 1, borderRadius: 1, minWidth: 9 }}>
+                        <IconButton onClick={()=> addBasketItem({product:item, quantity:1})}
+                        color="success" size="small" sx={{ border: 1, borderRadius: 1, minWidth: 9 }}>
                             <Add />
                         </IconButton>
 
@@ -57,7 +60,7 @@ export default function BasketItem({ item }: Props) {
                 </Box>
             </Box>
             <IconButton
-            onClick={()=>removeBasketItem({productId: item.productId, quantity: item.quantity})} 
+            onClick={()=>removeBasketItem({productId: Number(item.productId), quantity: item.quantity})} 
                 color="error"
                 size="small"
                 sx={{
