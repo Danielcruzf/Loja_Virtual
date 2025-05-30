@@ -1,14 +1,14 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Product } from "../../app/models/product";
-import { useAddItemToBasketMutation } from "../basket/basketApi"; // Adicione este import
+import { useAddBasketItemMutation } from "../basket/basketApi"; // Adicione este import
 
 type Props = {
     product: Product;
 };
 
 export default function ProductCard({ product }: Props) {
-    const [addBasketItem, { isLoading }] = useAddItemToBasketMutation();
+    const [addBasketItem, { isLoading }] = useAddBasketItemMutation();
     return (
         <Card
             elevation={3}
