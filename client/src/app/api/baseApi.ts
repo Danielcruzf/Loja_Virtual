@@ -7,7 +7,8 @@ import { Router } from "react-router-dom";
 
 
 const cusotmBaseQuery = fetchBaseQuery({
-    baseUrl: "https://localhost:5001/api"
+    baseUrl: "https://localhost:5001/api",
+    credentials:'include'
 });
 type ErroResponse = | string | {
     title: string
