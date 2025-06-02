@@ -8,8 +8,16 @@ import OrderSummary from "../../app/shared/componets/OrderSummary";
 
 export default function BasketPage() {
   const { data, isLoading } = useFetchBasketQuery();
-  if (isLoading) return <Typography>Loading basket...</Typography>
-  if (!data || data.items.length === 0) return <Typography variant="h3">You basket is empty</Typography>
+
+  if (isLoading) return
+  <Typography>
+    Loading basket...
+  </Typography>
+
+  if (!data || data.items.length === 0) return
+  <Typography variant="h3">
+    You basket is empty
+  </Typography>
 
   return (
     <Grid container spacing={2}>

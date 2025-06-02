@@ -9,7 +9,7 @@ export default function ProductDetails() {
   const [removeBasketItem] = useRemoveBasketItemMutation();
   const [addBasketItem] = useAddBasketItemMutation();
   const { data: basket } = useFetchBasketQuery();
-  const item = basket?.items.find(x => x.productId === +id!);
+  const item = basket?.items.find(x => x.productId === id);
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {

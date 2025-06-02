@@ -25,19 +25,27 @@ export const basketApi = createApi({
                 };
             },
             onQueryStarted: async ({ product, quantity }, { dispatch, queryFulfilled }) => {
+                let isNewBasket = false;
                 const patchResult = dispatch(
                     basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
                         const productId = isBasketItem(product) ? product.productId : product.id;
-                        const existingItem = draft.items.find(item => Number(item.productId) === productId);
-                        if (existingItem) {
-                            existingItem.quantity += quantity;
-                        } else {
-                            draft.items.push(isBasketItem(product) ? product : new Item(product, quantity));
+
+                        if (!draft?.basketId) isNewBasket = true;
+
+                        if (!isNewBasket) {
+                            const existingItem = draft.items.find(item => item.productId === productId);
+                            if (existingItem) {
+                                existingItem.quantity += quantity;
+                            } else
+                                draft.items.push(isBasketItem(product) ? product : { ...product, productId: String(product.id), quantity });
                         }
                     })
-                );
+                )
                 try {
                     await queryFulfilled;
+
+                    if(isNewBasket)dispatch(basketApi.util.invalidateTags(['Basket']))
+
                 } catch (error) {
                     console.log(error);
                     patchResult.undo();
@@ -49,7 +57,8 @@ export const basketApi = createApi({
                 url: `basket?productId=${productId}&quantity=${quantity}`,
                 method: 'DELETE',
             }),
-            onQueryStarted: async ({ productId, quantity }, { dispatch, queryFulfilled }) => {
+            onQueryStarted: async ({ productId, quantity }, {
+                dispatch, queryFulfilled }) => {
                 const patchResult = dispatch(
                     basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
                         const itemIndex = draft.items.findIndex(item => Number(item.productId) === productId);
