@@ -4,8 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/Stores";
 import { setDarkMode } from "./uiSlice";
 import { useFetchBasketQuery } from "../../features/basket/basketApi";
-import type { Item } from "../../app/models/basket"; 
-
 
 const midLinks =
   [
@@ -41,7 +39,7 @@ export default function NavBar() {
   const { isLoading, darkMode } = useAppSelector(state => state.ui);
   const dispatch = useAppDispatch();
   const {data:basket} = useFetchBasketQuery();
-const itemCount =basket?.items.reduce((sum:number, item:Item)=>sum+item.quantity,0) ||0;
+const itemCount =basket?.items.reduce((sum, item)=>sum+item.quantity,0) ||0;
   return (
     <AppBar position="fixed">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

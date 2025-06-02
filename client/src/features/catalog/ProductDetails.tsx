@@ -1,13 +1,37 @@
 import { Button, Divider, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useFetchProductDetailsQuery } from "./CatalogApi";
+import { useAddBasketItemMutation, useFetchBasketQuery, useRemoveBasketItemMutation } from "../basket/basketApi";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  
+  const [removeBasketItem] = useRemoveBasketItemMutation();
+  const [addBasketItem] = useAddBasketItemMutation();
+  const { data: basket } = useFetchBasketQuery();
+  const item = basket?.items.find(x => x.productId === +id!);
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    if (item) setQuantity(item.quantity);
+  }, [item]);
+
   const { data: product, isLoading } = useFetchProductDetailsQuery(id ? +id : 0);
-  
+
   if (!product || isLoading) return <div>calma! Nasceu de 7 meses?</div>;
+
+  const handleUpdataBasket = () => {
+    const updatedQuantity = item ? Math.abs(quantity - item.quantity) : quantity;
+    if (!item || quantity > item.quantity) {
+      addBasketItem({ product, quantity: updatedQuantity })
+    } else {
+      removeBasketItem({ productId: product.id, quantity: updatedQuantity })
+    }
+  }
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = +event.currentTarget.value;
+    if (value >= 0) setQuantity(value)
+  }
 
   const productDetails = [
 
@@ -51,12 +75,16 @@ export default function ProductDetails() {
               type="number"
               label="Quantity"
               fullWidth
-              defaultValue={1}
+              defaultValue={quantity}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid size={6}>
-            <Button sx={{ height: "60px" }} color="primary" size="large" variant="contained" fullWidth>
-              ADD TO CART
+            <Button
+              onClick={handleUpdataBasket}
+              disabled={quantity === item?.quantity || !item && quantity === 0}
+              sx={{ height: "60px" }} color="primary" size="large" variant="contained" fullWidth>
+              {item?'Update quantity':'Add to basket'}
             </Button>
           </Grid>
         </Grid>
