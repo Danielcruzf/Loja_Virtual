@@ -9,11 +9,11 @@ export default function Catalog() {
   if (isLoading || !data) return <div>calma! Nasceu de 7 meses?</div>
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={6}>
       <Grid size={3}>
         <Filters />
       </Grid>
-      <Grid size={9 >}>
+      <Grid size={9}>
         <ProductList products={data} addProduct={function (): void {
           throw new Error("Function not implemented.");
         }} />
