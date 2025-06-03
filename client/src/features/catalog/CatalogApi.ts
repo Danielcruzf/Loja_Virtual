@@ -4,17 +4,17 @@ import { baseQueryWithErrorHandling } from '../../app/api/baseApi';
 
 // Especificando como deve ser feita a busca
 export const catalogApi = createApi({
-  reducerPath: 'catalogApi', 
+  reducerPath: 'catalogApi',
   baseQuery: baseQueryWithErrorHandling,
   endpoints: (builder) => ({
     fetchProduct: builder.query<Product[], void>({
-      query: () => ({url:'product'}),
+      query: () => ({ url: 'product' }),
     }),
     fetchProductDetails: builder.query<Product, number>({
-      query: (productId) => `product/${productId}`, 
+      query: (productId) => `product/${productId}`,
     }),
+    fetchFilters: builder.query<{brands:string[],types:string[]},void>({query:()=>'products/filters'})
   }),
 });
-export const { useFetchProductQuery, useFetchProductDetailsQuery } = catalogApi;
+export const { useFetchProductQuery, useFetchProductDetailsQuery, useFetchFiltersQuery } = catalogApi;
 
- 

@@ -6,7 +6,7 @@ type Props = {
   products: Product[];
   addProduct: () => void;
 }
-export default function productList({ products }: Props) {
+export default function ProductList({ products }: Props) {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, justifyContent: 'center' }}>
       {products.map(product => (
