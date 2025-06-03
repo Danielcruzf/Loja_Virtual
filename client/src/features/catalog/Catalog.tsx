@@ -2,9 +2,11 @@ import ProductList from "./ProductList";
 import { useFetchProductQuery } from "./CatalogApi";
 import { Grid } from "@mui/material";
 import Filters from "./Filters";
+import { useAppSelector } from "../../app/store/Stores";
 
 export default function Catalog() {
-  const { data, isLoading } = useFetchProductQuery();
+  const productParams=useAppSelector(state=>state.catalog);
+  const { data, isLoading } = useFetchProductQuery(productParams);
 
   if (isLoading || !data) return <div>calma! Nasceu de 7 meses?</div>
 
@@ -14,9 +16,10 @@ export default function Catalog() {
         <Filters />
       </Grid>
       <Grid size={9}>
-        <ProductList products={data} addProduct={function (): void {
+        <ProductList products={data.items} addProduct={function (): void {
           throw new Error("Function not implemented.");
-        }} />
+        } } />
+        
       </Grid>
     </Grid>
   )

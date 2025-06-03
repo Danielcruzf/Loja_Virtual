@@ -9,9 +9,9 @@ type Props = {
 export default function ProductList({ products }: Props) {
   return (
     <Grid container spacing={3}>
-      {products.map(product => (
-        <Grid size={3} display='flex'>
-        <ProductCard key={product.id} product={product}/>
+      {products.map(products => (
+        <Grid size={3} display='flex' key={products.id}>
+        <ProductCard  product={products}/>
         </Grid>
         ))}
     </Grid>

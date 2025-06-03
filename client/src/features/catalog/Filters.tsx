@@ -1,49 +1,51 @@
-import { Box, FormControl, FormControlLabel, FormGroup, Paper, Radio, TextField } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { useFetchFiltersQuery } from "./CatalogApi"
-import { CheckBox } from "@mui/icons-material";
+import Search from "./Search";
+import RadioButtonGroup from "../../app/shared/componets/RadioButtonGroup";
+import { useAppDispatch, useAppSelector } from "../../app/store/Stores";
+import { setBrands, setOrderBy, setTypes } from "./catalogSlice";
+import CheckboxButtons from "../../app/shared/componets/CheckboxButtons";
 
 const sortOptions = [
     { value: 'name', label: 'Alphbetical' },
-    { value: 'princeDesc', label: 'Price: High to Low' },
+    { value: 'priceDesc', label: 'Price: High to Low' },
     { value: 'price', label: 'Price: Low to high' },
-]
+];
 
-export default function Filters() 
-{
+export default function Filters() {
+    const {orderBy, types, brands}=useAppSelector(state=>state.catalog);
     const { data } = useFetchFiltersQuery();
-    console.log(data);
+    
+    const dispatch = useAppDispatch();
+
+    if(!data?.brands||!data.types) return <Typography>Loading...</Typography>
 
     return (
         <Box display='flex' flexDirection='column' gap={3}>
             <Paper>
-                <TextField
-                    label='Tu dá uma Zoiada aqui'
-                    variant="outlined"
-                    fullWidth
-                />
+                <Search/>
             </Paper>
             <Paper sx={{ p: 3 }}>
-                <FormControl>
-                    {sortOptions.map(({ value, label }) => (
-                        <FormControlLabel
-                            key={label}
-                            control={<Radio sx={{ py: 0.7 }} />}
-                            label={label}
-                            value={value}
-                        />
-                    ))}
-                </FormControl>
+               <RadioButtonGroup
+               selectedValue={orderBy}
+               options={sortOptions}
+               onChange={e=>dispatch(setOrderBy(e.target.value))}
+               />
             </Paper>
-            <Paper sx={{p:3}}>
-                <FormGroup>
-                    {data && data.types.map(item=>(<FormControlLabel
-                        key={item}
-                        control={<CheckBox color='secondary' sx={{ py: 0.7, fontSize: 40 }} />}
-                        label={item}                    
-                        />
-                        ))}
-                </FormGroup>
+            <Paper sx={{ p: 3 }}>
+              <CheckboxButtons
+              items={data.brands}
+              checked={brands}
+              onChange={(items:string[])=>dispatch(setBrands(items))}
+              />
+            </Paper><Paper sx={{ p: 3 }}>
+                <CheckboxButtons
+              items={data.types}
+              checked={types}
+              onChange={(items:string[])=>dispatch(setTypes(items))}
+              />
             </Paper>
+            
         </Box>
-    )
+    );
 }
