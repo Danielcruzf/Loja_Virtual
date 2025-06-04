@@ -61,15 +61,15 @@ namespace API.Controllers
         [HttpPost("address")]
         public async Task<ActionResult<Address>> CreateOrUpdateAddress(Address address)
         {
-            var user = await singInManager.UserManager.Users
-            .Include(x => x.Address)
-            .FirstOrDefaultAsnync(x => x.UserName == User.Identity!.Name);
+            var user = await signInManager.UserManager.Users
+      .Include(x => x.Address)
+      .FirstOrDefaultAsync(x => x.UserName == User.Identity!.Name);
 
             if (user == null) return Unauthorized();
 
             user.Address = address;
 
-            var result = await singInManager.UserManager.UpdateAsync(user);
+          var result = await signInManager.UserManager.UpdateAsync(user);
 
             if (result.Succeeded) return BadRequest("Problem updatating user address");
 
@@ -79,11 +79,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<Address>> GetSavedAddress()
         {
-            var adresse = await signInManager.UserManager.Users.Where(x => x.UserName == User.Identity!.Name)
+            var address = await signInManager.UserManager.Users.Where(x => x.UserName == User.Identity!.Name)
             .Select(x => x.Address)
             .FirstOrDefaultAsync();
 
-            if (address == null) resturn NoContent();
+            if (address == null) return NoContent();
 
             return address;
         }
