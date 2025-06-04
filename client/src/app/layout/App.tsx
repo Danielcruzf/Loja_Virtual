@@ -1,6 +1,6 @@
 import { Box, Container, CssBaseline,ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./NavBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useAppSelector } from "../store/Stores";
 
 function App() {
@@ -16,6 +16,7 @@ const palleteType = darkMode ? 'dark' : 'light'
   })
     return (
     <ThemeProvider theme={theme}>
+      <ScrollRestoration/>
       <CssBaseline />
       <NavBar/>
       <Box

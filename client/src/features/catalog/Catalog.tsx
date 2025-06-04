@@ -1,25 +1,43 @@
 import ProductList from "./ProductList";
-import { useFetchProductQuery } from "./CatalogApi";
-import { Grid } from "@mui/material";
+import { useFetchFiltersQuery, useFetchProductQuery } from "./CatalogApi";
+import { Grid, Typography } from "@mui/material";
 import Filters from "./Filters";
-import { useAppSelector } from "../../app/store/Stores";
+import { useAppDispatch, useAppSelector } from "../../app/store/Stores";
+import AppPagination from "../../app/shared/componets/AppPagination";
+import { setPageNumber } from "./catalogSlice";
 
 export default function Catalog() {
-  const productParams=useAppSelector(state=>state.catalog);
+  const productParams = useAppSelector(state => state.catalog);
   const { data, isLoading } = useFetchProductQuery(productParams);
+  const { data: filtersData, isLoading: filtersLoading } = useFetchFiltersQuery();
+  const dispatch = useAppDispatch();
 
-  if (isLoading || !data) return <div>calma! Nasceu de 7 meses?</div>
+  if (isLoading || !data || filtersLoading || !filtersData) return <div>Loading...</div>
 
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={4}>
       <Grid size={3}>
-        <Filters />
+        <Filters filtersData={filtersData}/>
       </Grid>
       <Grid size={9}>
-        <ProductList products={data.items} addProduct={function (): void {
-          throw new Error("Function not implemented.");
-        } } />
-        
+        {data.items && data.items.length > 0 ? (
+          <>
+            <ProductList products={data.items} addProduct={function (): void {
+              throw new Error("Function not implemented.");
+            } }  />
+            <AppPagination
+              metadata={data.pagination}
+              onPageChange={(page: number) => {
+                dispatch(setPageNumber(page));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+          </>
+        ) : (
+          <Typography variant="h5">
+            There are no results for this filter
+          </Typography>
+        )}
       </Grid>
     </Grid>
   )

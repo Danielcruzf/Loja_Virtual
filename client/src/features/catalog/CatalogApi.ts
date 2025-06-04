@@ -5,14 +5,6 @@ import { ProductParams } from '../../app/models/productParams';
 import { filterEmptyValues } from '../../lib/util';
 import { Pagination } from '../../app/models/pagination';
 
-// Defina a interface para o retorno dos filtros
-interface FiltersResponse {
-    brands: string[];
-    types: string[];
-    [key: string]: unknown; // permite propriedades extras, se necessário
-}
-
-// Especificando como deve ser feita a busca
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: baseQueryWithErrorHandling,
@@ -31,7 +23,7 @@ export const catalogApi = createApi({
     fetchProductDetails: builder.query<Product, number>({
       query: (productId) => `product/${productId}`,
     }),
-    fetchFilters: builder.query<FiltersResponse, void>({
+    fetchFilters: builder.query<{ brands: string[], types: string[] }, void>({
       query: () => 'product/filters',
     }),
   }),
