@@ -76,25 +76,23 @@
           "build/_._": {}
         }
       },
-      "Microsoft.Build.Tasks.Core/17.7.2": {
+      "Microsoft.Build.Tasks.Core/17.10.4": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Build.Framework": "17.7.2",
-          "Microsoft.Build.Utilities.Core": "17.7.2",
-          "Microsoft.NET.StringTools": "17.7.2",
-          "Microsoft.VisualStudio.Setup.Configuration.Interop": "3.2.2146",
-          "System.CodeDom": "7.0.0",
-          "System.Configuration.ConfigurationManager": "7.0.0",
-          "System.Resources.Extensions": "7.0.0",
-          "System.Security.Permissions": "7.0.0"
+          "Microsoft.Build.Framework": "17.10.4",
+          "Microsoft.Build.Utilities.Core": "17.10.4",
+          "Microsoft.NET.StringTools": "17.10.4",
+          "System.CodeDom": "8.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Resources.Extensions": "8.0.0"
         },
         "compile": {
-          "ref/net7.0/Microsoft.Build.Tasks.Core.dll": {
+          "ref/net8.0/Microsoft.Build.Tasks.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/Microsoft.Build.Tasks.Core.dll": {
+          "lib/net8.0/Microsoft.Build.Tasks.Core.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -598,22 +596,6 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "build/_._": {}
-        }
-      },
       "Mono.TextTemplating/3.0.0": {
         "type": "package",
         "dependencies": {
@@ -774,15 +756,15 @@
           "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "System.CodeDom/7.0.0": {
+      "System.CodeDom/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.CodeDom.dll": {
+          "lib/net8.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/System.CodeDom.dll": {
+          "lib/net8.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
@@ -1107,10 +1089,10 @@
         "microsoft.build.locator.nuspec"
       ]
     },
-    "Microsoft.Build.Tasks.Core/17.7.2": {
-      "sha512": "CmI+mDQ44GWVv0mxFcGYlvek838kK3PgNvXPo/1/Q5/Tc97tajO611uZAj2wNfwJ1kjsCef2Mza4d+SVSyd3Mg==",
+    "Microsoft.Build.Tasks.Core/17.10.4": {
+      "sha512": "k1sefpk2VvJNwcexMjisH+TdzhspCVRtYvh4fAez5qRM20VvsNxcOIjfDe3h3StZRIGI2aiFKGxBZYkwM+WV+A==",
       "type": "package",
-      "path": "microsoft.build.tasks.core/17.7.2",
+      "path": "microsoft.build.tasks.core/17.10.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1119,16 +1101,16 @@
         "lib/net472/Microsoft.Build.Tasks.Core.dll",
         "lib/net472/Microsoft.Build.Tasks.Core.pdb",
         "lib/net472/Microsoft.Build.Tasks.Core.xml",
-        "lib/net7.0/Microsoft.Build.Tasks.Core.dll",
-        "lib/net7.0/Microsoft.Build.Tasks.Core.pdb",
-        "lib/net7.0/Microsoft.Build.Tasks.Core.xml",
-        "microsoft.build.tasks.core.17.7.2.nupkg.sha512",
+        "lib/net8.0/Microsoft.Build.Tasks.Core.dll",
+        "lib/net8.0/Microsoft.Build.Tasks.Core.pdb",
+        "lib/net8.0/Microsoft.Build.Tasks.Core.xml",
+        "microsoft.build.tasks.core.17.10.4.nupkg.sha512",
         "microsoft.build.tasks.core.nuspec",
         "notices/THIRDPARTYNOTICES.txt",
         "ref/net472/Microsoft.Build.Tasks.Core.dll",
         "ref/net472/Microsoft.Build.Tasks.Core.xml",
-        "ref/net7.0/Microsoft.Build.Tasks.Core.dll",
-        "ref/net7.0/Microsoft.Build.Tasks.Core.xml",
+        "ref/net8.0/Microsoft.Build.Tasks.Core.dll",
+        "ref/net8.0/Microsoft.Build.Tasks.Core.xml",
         "ref/netstandard2.0/Microsoft.Build.Tasks.Core.dll",
         "ref/netstandard2.0/Microsoft.Build.Tasks.Core.xml"
       ]
@@ -2382,22 +2364,6 @@
         "ref/netstandard2.0/Microsoft.NET.StringTools.xml"
       ]
     },
-    "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-      "sha512": "gMq8uGy8zTIp0kQGTI45buZC3JOStGJyjGD8gksskk83aQISW65IESErLE/WDT7Bdy+QWbdUi7QyO1LEzUSOFA==",
-      "type": "package",
-      "path": "microsoft.visualstudio.setup.configuration.interop/3.2.2146",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/Microsoft.VisualStudio.Setup.Configuration.Interop.targets",
-        "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.dll",
-        "lib/net35/Microsoft.VisualStudio.Setup.Configuration.Interop.xml",
-        "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.dll",
-        "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.xml",
-        "microsoft.visualstudio.setup.configuration.interop.3.2.2146.nupkg.sha512",
-        "microsoft.visualstudio.setup.configuration.interop.nuspec"
-      ]
-    },
     "Mono.TextTemplating/3.0.0": {
       "sha512": "YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "type": "package",
@@ -2537,10 +2503,10 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
-    "System.CodeDom/7.0.0": {
-      "sha512": "GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
+    "System.CodeDom/8.0.0": {
+      "sha512": "WTlRjL6KWIMr/pAaq3rYqh0TJlzpouaQ/W1eelssHgtlwHAH25jXTkUphTYx9HaIIf7XA6qs/0+YhtLEQRkJ+Q==",
       "type": "package",
-      "path": "system.codedom/7.0.0",
+      "path": "system.codedom/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2557,9 +2523,11 @@
         "lib/net6.0/System.CodeDom.xml",
         "lib/net7.0/System.CodeDom.dll",
         "lib/net7.0/System.CodeDom.xml",
+        "lib/net8.0/System.CodeDom.dll",
+        "lib/net8.0/System.CodeDom.xml",
         "lib/netstandard2.0/System.CodeDom.dll",
         "lib/netstandard2.0/System.CodeDom.xml",
-        "system.codedom.7.0.0.nupkg.sha512",
+        "system.codedom.8.0.0.nupkg.sha512",
         "system.codedom.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -2914,6 +2882,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.5",
+      "Microsoft.Build.Tasks.Core >= 17.10.4",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.0-preview.3.25171.6",
       "Microsoft.EntityFrameworkCore.Sqlite >= 10.0.0-preview.3.25171.6"
     ]
@@ -2925,11 +2894,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\API.csproj",
+      "projectPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\API.csproj",
       "packagesPath": "C:\\Users\\TAIBA-APOIO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\API\\obj\\",
+      "outputPath": "C:\\Users\\TAIBA-APOIO\\Desktop\\Restore\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2972,6 +2941,10 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
             "version": "[9.0.5, )"
+          },
+          "Microsoft.Build.Tasks.Core": {
+            "target": "Package",
+            "version": "[17.10.4, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "target": "Package",
@@ -3443,7 +3416,7 @@
       "code": "NU1901",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.Build.Tasks.Core' 17.7.2 has a known low severity vulnerability, https://github.com/advisories/GHSA-h4j7-5rxr-p4wc",
+      "message": "O pacote 'Microsoft.Build.Tasks.Core' 17.10.4 tem uma baixa vulnerabilidade de gravidade conhecida, https://github.com/advisories/GHSA-h4j7-5rxr-p4wc",
       "libraryId": "Microsoft.Build.Tasks.Core",
       "targetGraphs": [
         "net10.0"

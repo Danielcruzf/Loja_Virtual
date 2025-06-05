@@ -2,8 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 import { User } from "../../app/models/user";
 import { loginSchema } from "../../lib/schemas/loginSchema";
-import { Router } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export const accountApi = createApi({
   reducerPath: 'accountApi',
@@ -44,8 +43,9 @@ export const accountApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(accountApi.util.invalidateTags(['UserInfo']));
-        Router.navigate('/');
+        useNavigate('/');
       }
+      
     })
   })
 });

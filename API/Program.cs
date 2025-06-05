@@ -11,8 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 //Serviço de conexão ao Banco de Dados
-builder.Services.AddDbContext<StoreContext>(opt =>
-{ opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")); });
+builder.Services.AddDbContext<StoreContext>(options =>
+ options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddCors();
 builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
@@ -34,6 +35,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<User>();//api login
 
-DbInitializer.InitDb(app);
+await DbInitializer.InitDb(app);
 
 app.Run();

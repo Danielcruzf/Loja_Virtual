@@ -9,6 +9,7 @@
       "API/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.5",
+          "Microsoft.Build.Tasks.Core": "17.10.4",
           "Microsoft.EntityFrameworkCore.Design": "10.0.0-preview.3.25171.6",
           "Microsoft.EntityFrameworkCore.Sqlite": "10.0.0-preview.3.25171.6"
         },
@@ -66,21 +67,19 @@
           }
         }
       },
-      "Microsoft.Build.Tasks.Core/17.7.2": {
+      "Microsoft.Build.Tasks.Core/17.10.4": {
         "dependencies": {
           "Microsoft.Build.Framework": "17.13.9",
           "Microsoft.Build.Utilities.Core": "17.13.9",
           "Microsoft.NET.StringTools": "17.13.9",
-          "Microsoft.VisualStudio.Setup.Configuration.Interop": "3.2.2146",
-          "System.CodeDom": "7.0.0",
+          "System.CodeDom": "8.0.0",
           "System.Configuration.ConfigurationManager": "8.0.0",
-          "System.Resources.Extensions": "8.0.0",
-          "System.Security.Permissions": "8.0.0"
+          "System.Resources.Extensions": "8.0.0"
         },
         "runtime": {
-          "lib/net7.0/Microsoft.Build.Tasks.Core.dll": {
+          "lib/net8.0/Microsoft.Build.Tasks.Core.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "17.7.2.37605"
+            "fileVersion": "17.10.4.21802"
           }
         }
       },
@@ -320,13 +319,13 @@
           "Humanizer.Core": "2.14.1",
           "Microsoft.Build": "17.7.2",
           "Microsoft.Build.Framework": "17.13.9",
-          "Microsoft.Build.Tasks.Core": "17.7.2",
+          "Microsoft.Build.Tasks.Core": "17.10.4",
           "Microsoft.Build.Utilities.Core": "17.13.9",
           "Microsoft.CodeAnalysis.Analyzers": "3.11.0",
           "Microsoft.CodeAnalysis.Common": "4.13.0",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.13.0",
           "Newtonsoft.Json": "13.0.3",
-          "System.CodeDom": "7.0.0",
+          "System.CodeDom": "8.0.0",
           "System.Composition": "8.0.0",
           "System.Configuration.ConfigurationManager": "8.0.0",
           "System.Resources.Extensions": "8.0.0",
@@ -486,17 +485,9 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.VisualStudio.Setup.Configuration.Interop.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "3.2.2146.50370"
-          }
-        }
-      },
       "Mono.TextTemplating/3.0.0": {
         "dependencies": {
-          "System.CodeDom": "7.0.0"
+          "System.CodeDom": "8.0.0"
         },
         "runtime": {
           "lib/net6.0/Mono.TextTemplating.dll": {
@@ -653,11 +644,11 @@
           }
         }
       },
-      "System.CodeDom/7.0.0": {
+      "System.CodeDom/8.0.0": {
         "runtime": {
-          "lib/net7.0/System.CodeDom.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
+          "lib/net8.0/System.CodeDom.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
           }
         }
       },
@@ -826,12 +817,12 @@
       "path": "microsoft.build.locator/1.7.8",
       "hashPath": "microsoft.build.locator.1.7.8.nupkg.sha512"
     },
-    "Microsoft.Build.Tasks.Core/17.7.2": {
+    "Microsoft.Build.Tasks.Core/17.10.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CmI+mDQ44GWVv0mxFcGYlvek838kK3PgNvXPo/1/Q5/Tc97tajO611uZAj2wNfwJ1kjsCef2Mza4d+SVSyd3Mg==",
-      "path": "microsoft.build.tasks.core/17.7.2",
-      "hashPath": "microsoft.build.tasks.core.17.7.2.nupkg.sha512"
+      "sha512": "sha512-k1sefpk2VvJNwcexMjisH+TdzhspCVRtYvh4fAez5qRM20VvsNxcOIjfDe3h3StZRIGI2aiFKGxBZYkwM+WV+A==",
+      "path": "microsoft.build.tasks.core/17.10.4",
+      "hashPath": "microsoft.build.tasks.core.17.10.4.nupkg.sha512"
     },
     "Microsoft.Build.Utilities.Core/17.13.9": {
       "type": "package",
@@ -945,13 +936,6 @@
       "path": "microsoft.net.stringtools/17.13.9",
       "hashPath": "microsoft.net.stringtools.17.13.9.nupkg.sha512"
     },
-    "Microsoft.VisualStudio.Setup.Configuration.Interop/3.2.2146": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-gMq8uGy8zTIp0kQGTI45buZC3JOStGJyjGD8gksskk83aQISW65IESErLE/WDT7Bdy+QWbdUi7QyO1LEzUSOFA==",
-      "path": "microsoft.visualstudio.setup.configuration.interop/3.2.2146",
-      "hashPath": "microsoft.visualstudio.setup.configuration.interop.3.2.2146.nupkg.sha512"
-    },
     "Mono.TextTemplating/3.0.0": {
       "type": "package",
       "serviceable": true,
@@ -994,12 +978,12 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.1.10",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.10.nupkg.sha512"
     },
-    "System.CodeDom/7.0.0": {
+    "System.CodeDom/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
-      "path": "system.codedom/7.0.0",
-      "hashPath": "system.codedom.7.0.0.nupkg.sha512"
+      "sha512": "sha512-WTlRjL6KWIMr/pAaq3rYqh0TJlzpouaQ/W1eelssHgtlwHAH25jXTkUphTYx9HaIIf7XA6qs/0+YhtLEQRkJ+Q==",
+      "path": "system.codedom/8.0.0",
+      "hashPath": "system.codedom.8.0.0.nupkg.sha512"
     },
     "System.Composition/8.0.0": {
       "type": "package",
