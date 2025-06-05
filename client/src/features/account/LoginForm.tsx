@@ -1,8 +1,31 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Box, Container, Paper, Typography, TextField, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "./accountApi";
+import { zodResolver } from "@hookform/resolvers/zod"; 
+import { z } from "zod"; 
+
+const loginSchema = z.object({
+  email: z.string().email({ message: "Email inválido" }),
+  password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+});
+
+type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
+    mode: 'onTouched',
+    resolver: zodResolver(loginSchema), 
+  });
+const navigate = useNavigate();
+  const onSubmit = async (data: LoginSchema) => {
+    await login(data);
+    navigate('/catalog')
+  };
+
   return (
     <Container component={Paper} maxWidth='sm' sx={{ borderRadius: 3 }}>
       <Box display='flex' flexDirection='column' alignItems='center' marginTop={8}>
@@ -12,6 +35,7 @@ export default function LoginForm() {
         </Typography>
         <Box
           component='form'
+          onSubmit={handleSubmit(onSubmit)}
           width='100%'
           display='flex'
           flexDirection='column'
@@ -21,19 +45,25 @@ export default function LoginForm() {
           <TextField
             fullWidth
             label='Email'
-            type='email'
+            autoFocus
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
           <TextField
             fullWidth
             label='Password'
             type='password'
+            {...register('password')}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
-          <Button variant="contained">
+          <Button disabled={isLoading} variant="contained" type="submit">
             Sign in
           </Button>
           <Typography sx={{ textAlign: 'center' }}>
             Don't have an account?
-            <Typography sx={{ml:2}} component={Link} to='/register' color='primary'>
+            <Typography sx={{ ml: 2 }} component={Link} to='/register' color='primary'>
               Sign up
             </Typography>
           </Typography>

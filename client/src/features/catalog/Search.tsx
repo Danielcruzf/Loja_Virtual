@@ -18,7 +18,7 @@ export default function Search() {
 
     return (
         <TextField
-            label='Search'
+            label='Search '
             variant="outlined"
             fullWidth
             type="search"
