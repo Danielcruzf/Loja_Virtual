@@ -1,3 +1,4 @@
+using System.Configuration;
 using API.Data;
 using API.Entities;
 using API.Middleware;
@@ -10,9 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container. - Serviços
 
 builder.Services.AddControllers();
+
 //Serviço de conexão ao Banco de Dados
 builder.Services.AddDbContext<StoreContext>(options =>
- options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddCors();
 builder.Services.AddTransient<ExceptionMiddleware>();

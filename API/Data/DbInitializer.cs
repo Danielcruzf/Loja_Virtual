@@ -1,8 +1,4 @@
-
-using System;
-using System.Threading.Tasks;
 using API.Entities;
-using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,13 +16,25 @@ public class DbInitializer
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>()
             ?? throw new InvalidOperationException("Failed to retrieve user manager");
 
-        await SeedData(context, userManager);
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>()
+            ?? throw new InvalidOperationException("Failed to retrieve role manager");
+
+        await SeedData(context, userManager, roleManager);
     }
 
-    
-    private static async Task SeedData(StoreContext context, UserManager<User> userManager)
+    private static async Task SeedData(StoreContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
         context.Database.Migrate();
+
+        var roles = new[] { "Member", "Admin" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
 
         if (!userManager.Users.Any())
         {

@@ -18,10 +18,5 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<User>(op
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<IdentityRole>()
-            .HasData(
-                new IdentityRole { Id = "bf9c8b73-dd18-44d7-b8a9-12912d3a9456", Name = "Member", NormalizedName = "MEMBER" },
-                new IdentityRole { Id = "b5eb70ef-a1b9-4a09-a83d-440b27bc8101", Name = "Admin", NormalizedName = "ADMIN" }
-            );
     }
 }
