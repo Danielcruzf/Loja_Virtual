@@ -40,30 +40,30 @@ const navigate = useNavigate();
           display='flex'
           flexDirection='column'
           gap={3}
-          margin={3}
+          marginY={3}
         >
           <TextField
             fullWidth
             label='Email'
             autoFocus
-            {...register('email')}
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            {...register('email')}//
+            error={!!errors.email}//
+            helperText={errors.email?.message}//
           />
           <TextField
             fullWidth
             label='Password'
             type='password'
-            {...register('password')}
-            error={!!errors.password}
-            helperText={errors.password?.message}
+            {...register('password')}//
+            error={!!errors.password}//
+            helperText={errors.password?.message}//
           />
           <Button disabled={isLoading} variant="contained" type="submit">
             Sign in
           </Button>
           <Typography sx={{ textAlign: 'center' }}>
             Don't have an account?
-            <Typography sx={{ ml: 2 }} component={Link} to='/register' color='primary'>
+            <Typography sx={{ ml: 3 }} component={Link} to='/register' color='primary'>
               Sign up
             </Typography>
           </Typography>

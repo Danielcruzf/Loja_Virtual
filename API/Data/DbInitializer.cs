@@ -55,6 +55,7 @@ public class DbInitializer
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");
             await userManager.AddToRolesAsync(admin, new[] { "Member", "Admin" });
+            
         }
 
         if (context.Products.Any()) return; // Verifica se já existem produtos no banco de dados

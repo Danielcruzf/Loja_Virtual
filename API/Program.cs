@@ -32,12 +32,13 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000"));
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();//validação de usuário
+app.UseAuthorization();//validação de autorização
 
 app.MapControllers();
-app.MapGroup("api").MapIdentityApi<User>();//api login
+app.MapGroup("api").MapIdentityApi<User>();// MapIdentityApi<User> é um método de extensão que mapeia os endpoints de identidade para a API, permitindo operações como registro, login e gerenciamento de usuários.
 
-await DbInitializer.InitDb(app);
+
+await DbInitializer.InitDb(app);// Inicialização do banco de dados
 
 app.Run();

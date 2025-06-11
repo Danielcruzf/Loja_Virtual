@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const accountApi = createApi({
   reducerPath: 'accountApi',
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['UserInfo'], // Corrigido: era tagType e o nome da tag estava errado
+  tagTypes: ['UserInfo'], 
   endpoints: (builder) => ({
     login: builder.mutation<void, loginSchema>({
       query: (creds) => ({
@@ -25,15 +25,16 @@ export const accountApi = createApi({
       }
     }),
     register: builder.mutation<void, object>({
-      query: (creds) => ({
+      query: (creds) => {
+        return{
         url: 'account/register',
         method: 'POST',
         body: creds
-      })
+      }}
     }),
     userInfo: builder.query<User, void>({
       query: () => 'account/user-info',
-      providesTags: ['UserInfo'] // Corrigido: vírgula e nome da tag
+      
     }),
     logout: builder.mutation({
       query: () => ({
@@ -49,4 +50,5 @@ export const accountApi = createApi({
     })
   })
 });
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUserInfoQuery } = accountApi;
+export const { useLoginMutation, useRegisterMutation, 
+  useLogoutMutation, useUserInfoQuery } = accountApi;
