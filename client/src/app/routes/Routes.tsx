@@ -10,31 +10,31 @@ import NotFound from "../errors/NotFound";
 import BasketPage from "../../features/basket/basketPage";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
 import LoginForm from "../../features/account/LoginForm";
+import RegisterForm from "../../lib/schemas/registerForm";
+import RequiredAuth from "./RequeridAuth";
 
 export const routes = createBrowserRouter([
     {
         path: "/", element: <App />,
         children: [
+            {
+                element: <RequiredAuth />, children: [
+                    { path: 'checkout', element: <CheckoutPage /> },
+                ]
+            },
             { path: '', element: <HomePage /> },
             { path: 'catalog', element: <Catalog /> },
             { path: 'catalog/:id', element: <ProductDetails /> },
             { path: 'about', element: <AboutPage /> },
             { path: 'contact', element: <ContactPage /> },
             { path: 'basket', element: <BasketPage /> },
-            { path: 'checkout', element: <CheckoutPage /> },
             { path: 'server-error', element: <ServeError /> },
             { path: 'login', element: <LoginForm /> },
+            { path: 'register', element: <RegisterForm /> },
             { path: 'not-found', element: <NotFound /> },
             { path: '*', element: <Navigate replace to='/not-found' /> },
 
         ]
     }], {
-    future: {
-        v7_relaveSplatPath: true,
-        v7_fetcherPersist: true,
-        v7_normalizeFormMethod: true,
-        v7_partialHydration: true,
-        v7_skipActionErrorRevalidation: true,
 
-    }
 })

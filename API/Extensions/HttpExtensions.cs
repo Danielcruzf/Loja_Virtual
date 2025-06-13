@@ -1,7 +1,6 @@
 using System;
 using System.Text.Json;
 using API.RequestHelpers;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Net.Http.Headers;
 namespace API.Extensions;
 

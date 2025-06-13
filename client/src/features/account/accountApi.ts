@@ -2,7 +2,10 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 import { User } from "../../app/models/user";
 import { loginSchema } from "../../lib/schemas/loginSchema";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+//import { useNavigate } from "react-router-dom";
+
+
 
 export const accountApi = createApi({
   reducerPath: 'accountApi',
@@ -25,15 +28,26 @@ export const accountApi = createApi({
       }
     }),
     register: builder.mutation<void, object>({
-      query: (creds) => {
-        return{
+      query: (creds) => ({
         url: 'account/register',
         method: 'POST',
         body: creds
-      }}
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('Registration successful - you can now login!');
+          //router.useNavigate('/login');
+        } catch (error) {
+          console.log(error);
+          throw error;
+        }
+      }
     }),
     userInfo: builder.query<User, void>({
       query: () => 'account/user-info',
+      providesTags: 
+      ['UserInfo']
       
     }),
     logout: builder.mutation({
@@ -44,11 +58,12 @@ export const accountApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(accountApi.util.invalidateTags(['UserInfo']));
-        useNavigate('/');
+       //router.useNavigate('/');
+        
       }
       
     })
   })
 });
 export const { useLoginMutation, useRegisterMutation, 
-  useLogoutMutation, useUserInfoQuery } = accountApi;
+  useLogoutMutation, useUserInfoQuery, useLazyUserInfoQuery } = accountApi;

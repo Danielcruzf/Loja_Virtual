@@ -1,10 +1,10 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Box, Container, Paper, Typography, TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./accountApi";
-import { zodResolver } from "@hookform/resolvers/zod"; 
-import { z } from "zod"; 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Email inválido" }),
@@ -15,15 +15,16 @@ type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const [login, { isLoading }] = useLoginMutation();
-
+  const location = useLocation();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     mode: 'onTouched',
-    resolver: zodResolver(loginSchema), 
+    resolver: zodResolver(loginSchema),
   });
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const onSubmit = async (data: LoginSchema) => {
     await login(data);
-    navigate('/catalog')
+    navigate(location.state?.from || '/catalog');
   };
 
   return (
@@ -46,17 +47,17 @@ const navigate = useNavigate();
             fullWidth
             label='Email'
             autoFocus
-            {...register('email')}//
-            error={!!errors.email}//
-            helperText={errors.email?.message}//
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
           <TextField
             fullWidth
             label='Password'
             type='password'
-            {...register('password')}//
-            error={!!errors.password}//
-            helperText={errors.password?.message}//
+            {...register('password')}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
           <Button disabled={isLoading} variant="contained" type="submit">
             Sign in

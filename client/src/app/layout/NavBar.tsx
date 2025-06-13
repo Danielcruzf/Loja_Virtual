@@ -7,6 +7,7 @@ import { useFetchBasketQuery } from "../../features/basket/basketApi";
 import UseMenu from "./UserMenu";
 import { useUserInfoQuery } from "../../features/account/accountApi";
 
+
 const midLinks = [
   { title: "catalog", path: "/catalog" },
   { title: "about", path: "/about" },
@@ -33,11 +34,11 @@ const navStyles = {
 };
 
 export default function NavBar() {
-
-  const { data: user } = useUserInfoQuery();
+const {data:user}=useUserInfoQuery();
   const { darkMode } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
   const { data: basket } = useFetchBasketQuery();
+
   const itemCount = basket?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
@@ -77,7 +78,7 @@ export default function NavBar() {
                   key={path}
                   sx={navStyles}
                 >
-                  {title.toLocaleUpperCase()}
+                  {title.toUpperCase()}
                 </ListItem>
               ))}
             </List>
