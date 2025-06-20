@@ -1,9 +1,17 @@
 import { Box, Container, CssBaseline,ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./NavBar";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../store/Stores";
+import{setNavigate} from '../routes/router'
+import { useEffect } from "react";
 
 function App() {
+   const navigate = useNavigate();
+
+  useEffect(() => {
+    setNavigate(navigate);
+  }, [navigate]);
+
   const {darkMode}=useAppSelector(state => state.ui)
 const palleteType = darkMode ? 'dark' : 'light'
   const theme = createTheme({

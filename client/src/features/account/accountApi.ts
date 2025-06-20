@@ -3,11 +3,13 @@ import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 import { User } from "../../app/models/user";
 import { loginSchema } from "../../lib/schemas/loginSchema";
 import { toast } from "react-toastify";
-//import { useNavigate } from "react-router-dom";
+import { getNavigate } from "../../app/routes/router";
+
 
 
 
 export const accountApi = createApi({
+
   reducerPath: 'accountApi',
   baseQuery: baseQueryWithErrorHandling,
   tagTypes: ['UserInfo'], 
@@ -35,9 +37,10 @@ export const accountApi = createApi({
       }),
       async onQueryStarted(_, { queryFulfilled }) {
         try {
+          const router = getNavigate();
           await queryFulfilled;
           toast.success('Registration successful - you can now login!');
-          //router.useNavigate('/login');
+          router('/login');
         } catch (error) {
           console.log(error);
           throw error;
@@ -56,9 +59,10 @@ export const accountApi = createApi({
         method: 'POST'
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const router = getNavigate();
         await queryFulfilled;
         dispatch(accountApi.util.invalidateTags(['UserInfo']));
-       //router.useNavigate('/');
+       router('/');
         
       }
       
