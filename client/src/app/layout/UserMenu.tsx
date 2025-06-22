@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { Divider, ListItemIcon, ListItemText } from '@mui/material';
 import { History, Logout, Person } from '@mui/icons-material';
 import { useLogoutMutation } from '../../features/account/accountApi';
+import { useState } from 'react';
 
 type Props = {
     user: User
@@ -13,7 +14,7 @@ type Props = {
 
 export default function UserMenu({ user }: Props) {
     const [logout] = useLogoutMutation();
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

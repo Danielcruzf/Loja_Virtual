@@ -54,7 +54,7 @@ public class DbInitializer
             };
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");
-            await userManager.AddToRolesAsync(admin, new[] { "Member", "Admin" });
+            await userManager.AddToRolesAsync(admin,[ "Member", "Admin" ]);
             
         }
 

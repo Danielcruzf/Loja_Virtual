@@ -20,9 +20,9 @@ namespace API.Controllers
         [HttpPost("register")]//Resumindo: esse método cadastra um novo usuário, valida possíveis erros e, se tudo der certo, adiciona o usuário ao grupo "Member".
         public async Task<ActionResult> RegisterUser(RegisterDto registerDto)
         {
-            var user = new User { UserName = registerDto.Email, Email = registerDto.Email };
+            var user = new User { UserName = registerDto.Email, Email = registerDto.Email };//cria um novo usuário com o nome de usuário e email fornecidos no DTO de registro.
 
-            var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
+            var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);//
 
             if (!result.Succeeded)
             {

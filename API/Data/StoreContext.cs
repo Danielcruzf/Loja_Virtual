@@ -18,5 +18,7 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<User>(op
     {
         base.OnModelCreating(builder);
 
+     
+
     }
 }

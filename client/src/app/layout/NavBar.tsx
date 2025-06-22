@@ -34,13 +34,13 @@ const navStyles = {
 };
 
 export default function NavBar() {
-const {data:user}=useUserInfoQuery();
+  const {data:user}=useUserInfoQuery(); //erro usuario não aparece quando logado
   const { darkMode } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
   const { data: basket } = useFetchBasketQuery();
 
   const itemCount = basket?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
-console.log(user);
+
   return (
     <AppBar position="fixed">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

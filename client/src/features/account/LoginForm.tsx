@@ -24,7 +24,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginSchema) => {
     await login(data);
-    navigate(location.state?.from || '/catalog');
+    navigate('/catalog');
   };
 
   return (

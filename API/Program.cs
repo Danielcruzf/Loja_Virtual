@@ -36,6 +36,7 @@ app.UseAuthentication();//validação de usuário
 app.UseAuthorization();//validação de autorização
 
 app.MapControllers();
+
 app.MapGroup("api").MapIdentityApi<User>();// MapIdentityApi<User> é um método de extensão que mapeia os endpoints de identidade para a API, permitindo operações como registro, login e gerenciamento de usuários.
 
 
