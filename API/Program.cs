@@ -2,6 +2,7 @@ using System.Configuration;
 using API.Data;
 using API.Entities;
 using API.Middleware;
+using API.Services;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,11 @@ builder.Services.AddDbContext<StoreContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddCors();
-builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddCors();// Configuração de CORS para permitir requisições de origens específicas
+builder.Services.AddTransient<ExceptionMiddleware>();// Middleware para tratamento de exceções
+builder.Services.AddScoped<PaymentsService>();// Serviço de pagamentos
+
+// Configuração de endpoints de identidade 
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
     opt.User.RequireUniqueEmail = true;

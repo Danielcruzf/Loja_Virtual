@@ -8,6 +8,8 @@ namespace API.Entities
         public int Id { get; set; }
         public required string BasketId { get; set; }
         public List<BasketItem> Items { get; set; } = [];
+        public string? ClientSecret { get; set; }// Chave secreta do cliente para o pagamento
+        public string? PaymentIntentId { get; set; } // Identificador do pagamento, usado para atualizar ou verificar o status do pagamento
 
         public void AddItem(Product product, int quantity)
         {
