@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import { getNavigate } from "../routes/router";
 
 const customBaseQuery = fetchBaseQuery({
-  baseUrl: "https://localhost:5001/api",
-  credentials: "include",
+  baseUrl: import.meta.env.VITE_API_URL,// Define a URL base para as requisições
+  credentials: "include",// Inclui cookies nas requisições
 });
 
 type ErrorResponse =
