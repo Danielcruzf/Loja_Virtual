@@ -12,29 +12,33 @@ import CheckoutPage from "../../features/checkout/CheckoutPage";
 import LoginForm from "../../features/account/LoginForm";
 import RegisterForm from "../../lib/schemas/registerForm";
 import RequiredAuth from "./RequeridAuth";
+import CheckoutSuccess from "../../features/checkout/CheckoutSuccess";
 
-export const routes = createBrowserRouter([
+export const routes = createBrowserRouter(
+  [
     {
-        path: "/", element: <App />,
-        children: [
-            {
-                element: <RequiredAuth />, children: [
-                    { path: 'checkout', element: <CheckoutPage /> },
-                ]
-            },
-            { path: '', element: <HomePage /> },
-            { path: 'catalog', element: <Catalog /> },
-            { path: 'catalog/:id', element: <ProductDetails /> },
-            { path: 'about', element: <AboutPage /> },
-            { path: 'contact', element: <ContactPage /> },
-            { path: 'basket', element: <BasketPage /> },
-            { path: 'server-error', element: <ServeError /> },
-            { path: 'login', element: <LoginForm /> },
-            { path: 'register', element: <RegisterForm /> },
-            { path: 'not-found', element: <NotFound /> },
-            { path: '*', element: <Navigate replace to='/not-found' /> },
-
-        ]
-    }], {
-
-})
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          element: <RequiredAuth />,
+          children: [
+            { path: "checkout", element: <CheckoutPage /> },
+            { path: "checkout/success", element: <CheckoutSuccess /> },
+          ],
+        },
+        { path: "", element: <HomePage /> },
+        { path: "catalog", element: <Catalog /> },
+        { path: "catalog/:id", element: <ProductDetails /> },
+        { path: "about", element: <AboutPage /> },
+        { path: "contact", element: <ContactPage /> },
+        { path: "basket", element: <BasketPage /> },
+        { path: "server-error", element: <ServeError /> },
+        { path: "login", element: <LoginForm /> },
+        { path: "register", element: <RegisterForm /> },
+        { path: "not-found", element: <NotFound /> },
+        { path: "*", element: <Navigate replace to="/not-found" /> },
+      ],
+    },
+  ],
+);

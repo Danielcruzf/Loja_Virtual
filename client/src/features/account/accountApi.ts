@@ -1,7 +1,6 @@
-
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithErrorHandling } from "../../app/api/baseApi"
-import type { User } from "../../app/models/user"
+import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
+import { Address, type User } from "../../app/models/user";
 import type { LoginSchema } from "../../lib/schemas/loginSchema";
 import { routes } from "../../app/routes/Routes";
 import { toast } from "react-toastify";
@@ -39,14 +38,14 @@ export const accountApi = createApi({
           body: creds,
         };
       },
-      async onQueryStarted(_, {queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
           toast.success("Registration successful! You can now sign in!.");
           routes.navigate("/login");
         } catch (error) {
           console.log(error);
-          throw error; 
+          throw error;
         }
       },
     }),
@@ -60,12 +59,37 @@ export const accountApi = createApi({
         method: "POST",
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(accountApi.util.invalidateTags(["UserInfo"]));
+        routes.navigate("/");
+      },
+    }),
+    fetchAddress: builder.query<Address, void>({
+      query: () => ({
+        url: "account/address",
+      }),
+    }),
+    updateAddress: builder.mutation<Address, Address>({
+      query: (address) => ({
+        url: "account/address",
+        method: "POST",
+        body: address,
+      }),
+      onQueryStarted: async (address, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          accountApi.util.updateQueryData(
+            "fetchAddress",
+            undefined,
+            (draft) => {
+              Object.assign(draft, { ...address });
+            }
+          )
+        );
         try {
           await queryFulfilled;
-          dispatch(accountApi.util.invalidateTags(["UserInfo"]));
-          routes.navigate("/");
         } catch (error) {
-          console.log(error);
+          patchResult.undo();
+          console.error(error);
         }
       },
     }),
@@ -73,9 +97,11 @@ export const accountApi = createApi({
 });
 
 export const {
-    useLoginMutation,
-    useRegisterMutation,
-    useLogoutMutation,
-    useUserInfoQuery,
-    useLazyUserInfoQuery
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useUserInfoQuery,
+  useLazyUserInfoQuery,
+  useFetchAddressQuery,
+  useUpdateAddressMutation,
 } = accountApi;
