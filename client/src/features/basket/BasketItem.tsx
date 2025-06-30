@@ -2,7 +2,7 @@ import { Box, Grid, IconButton, Paper, Typography } from "@mui/material"
 import { Item } from "../../app/models/basket"
 import { Add, Close, Remove } from "@mui/icons-material"
 import { useRemoveBasketItemMutation, useAddBasketItemMutation  } from "./basketApi"
-import { currencyFormat } from "../../lib/util"
+import  currencyFormat  from "../../lib/util";
 
 
 

@@ -40,3 +40,10 @@ namespace API.Extensions
 }
 
 
+/*
+Este método de extensão assíncrono, chamado GetBasketWithItems, 
+é utilizado para buscar um objeto do tipo Basket (cesta) a partir de uma consulta (IQueryable<Basket>) 
+no Entity Framework. Ele recebe como parâmetro o identificador da cesta (basketId) 
+e retorna a cesta correspondente, incluindo seus itens e os produtos relacionados a cada item.
+
+*/

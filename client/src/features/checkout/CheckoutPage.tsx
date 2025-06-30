@@ -38,7 +38,9 @@ export default function CheckoutPage() {
   }, [basket?.clientSecret, darkMode]); // Recalcula as opções quando o clientSecret ou o modo escuro mudam
 
   // Renderiza a página de checkout com o CheckoutStepper e OrderSummary
+  console.log( !options);
   return (
+
     <Grid container spacing={2}>
       <Grid size={8}>
         {!stripePromise || !options || isLoading ? (
