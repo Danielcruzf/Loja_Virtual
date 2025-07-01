@@ -36,8 +36,9 @@ const steps = ["Address", "Payment", "Review"];
 
 export default function CheckoutStepper() {
   const [activeStep, setActiveStep] = useState(0);
-  const { data: { name, ...restAddress } = {} as Address, isLoading } =
-    useFetchAddressQuery();
+  //const [createOrder]=useCreateOrderMutation();
+  const { data,isLoading} =useFetchAddressQuery();
+  const { name,...restAddress} = data ||({} as Address);
   const [updateAddress] = useUpdateAddressMutation();
   const [saveAddressChecked, setSaveAddressChecked] = useState(false);
   const elements = useElements();
