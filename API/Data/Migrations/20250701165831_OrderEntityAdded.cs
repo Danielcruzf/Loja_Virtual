@@ -48,7 +48,7 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ItemOrdered_ProduvtId = table.Column<int>(type: "integer", nullable: false),
+                    ItemOrdered_ProductId = table.Column<int>(type: "integer", nullable: false),
                     ItemOrdered_Name = table.Column<string>(type: "text", nullable: false),
                     ItemOrdered_PictureUrl = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<long>(type: "bigint", nullable: false),

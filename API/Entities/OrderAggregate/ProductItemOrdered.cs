@@ -6,13 +6,13 @@ namespace API.Entities.OrderAggregate;
 [Owned]
 public class ProductItemOrdered
 {
-    public int ProduvtId { get; set; }
+    public int ProductId { get; set; }
     public required string Name { get; set; }
     public required string PictureUrl { get; set; }
 
 }
 /*
-ProduvtId: Um inteiro que armazena o identificador único do produto. Vale notar que há um erro de digitação no nome da propriedade ("ProduvtId" deveria ser "ProductId").
+ProductId: Um inteiro que armazena o identificador único do produto. Vale notar que há um erro de digitação no nome da propriedade ("ProductId" deveria ser "ProductId").
 Name: Uma string obrigatória (graças ao modificador required, disponível a partir do C# 11) que representa o nome do produto. O uso de required garante que essa propriedade deve ser definida ao criar uma instância da classe.
 PictureUrl: Outra string obrigatória que armazena a URL da imagem do produto, permitindo exibir a foto correspondente em interfaces de usuário.
 

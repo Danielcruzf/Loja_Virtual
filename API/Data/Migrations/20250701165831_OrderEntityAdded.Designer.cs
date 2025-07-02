@@ -528,7 +528,7 @@ namespace API.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<int>("ProduvtId")
+                            b1.Property<int>("ProductId")
                                 .HasColumnType("integer");
 
                             b1.HasKey("OrderItemId");
