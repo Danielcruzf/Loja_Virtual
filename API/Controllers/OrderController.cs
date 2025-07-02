@@ -44,7 +44,7 @@ public class OrdersController(StoreContext context) : BaseApiController // Contr
     {
         var basket = await context.Baskets.GetBasketWithItems(Request.Cookies["basketId"]); // Recupera o carrinho do usuário pelo cookie
 
-        if (basket == null || basket.Items.Count == 0) // Verifica se o carrinho existe e não está vazio
+        if (basket == null || basket.Items.Count == 0 || string.IsNullOrEmpty(basket.PaymentIntentId))   // Verifica se o carrinho existe e não está vazio
             return BadRequest("Basket is empty or not found"); // Retorna erro se não houver itens
 
         var items = CreateOrderItems(basket.Items); // Converte itens do carrinho em itens do pedido
