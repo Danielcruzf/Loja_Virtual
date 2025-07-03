@@ -11,26 +11,27 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Controllers; 
+namespace API.Controllers;
 
-[Authorize] 
+[Authorize]
 public class OrdersController(StoreContext context) : BaseApiController // Controller de pedidos, recebe o contexto do banco via injeção de dependência
 {
-    [HttpGet] 
-    public async Task<ActionResult<List<Order>>> GetOrders() // Retorna a lista de pedidos do usuário autenticado
+    [HttpGet]
+    public async Task<ActionResult<List<OrderDto>>> GetOrders() // Retorna a lista de pedidos do usuário autenticado
     {
         var orders = await context.Orders // Busca os pedidos no banco
-            .Include(x => x.OrderItems) // Inclui os itens do pedido no resultado
+            .ProjectToDto() // Inclui os itens do pedido no resultado
             .Where(x => x.BuyerEmail == User.GetUsername()) // Filtra pelos pedidos do usuário autenticado
             .ToListAsync(); // Executa a consulta de forma assíncrona
 
         return orders; // Retorna a lista de pedidos
     }
 
-    [HttpGet("{id:int}")] 
-    public async Task<ActionResult<Order>> GetOrderDetails(int id) // Retorna detalhes de um pedido específico
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<OrderDto>> GetOrderDetails(int id) // Retorna detalhes de um pedido específico
     {
         var order = await context.Orders // Busca os pedidos no banco
+            .ProjectToDto()
             .Where(x => x.BuyerEmail == User.GetUsername() && id == x.Id) // Filtra pelo usuário e pelo id do pedido
             .FirstOrDefaultAsync(); // Retorna o primeiro resultado ou null
 
@@ -39,7 +40,7 @@ public class OrdersController(StoreContext context) : BaseApiController // Contr
         return order; // Retorna o pedido encontrado
     }
 
-    [HttpPost] 
+    [HttpPost]
     public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto orderDto) // Cria um novo pedido a partir do DTO recebido
     {
         var basket = await context.Baskets.GetBasketWithItems(Request.Cookies["basketId"]); // Recupera o carrinho do usuário pelo cookie
@@ -73,12 +74,12 @@ public class OrdersController(StoreContext context) : BaseApiController // Contr
 
         if (!result) return BadRequest("Problem creating order"); // Se falhar, retorna erro
 
-        return CreatedAtAction(nameof(GetOrderDetails), new { id = order.Id }, order); // Retorna 201 com os detalhes do pedido criado
+        return CreatedAtAction(nameof(GetOrderDetails), new { id = order.Id }, order.ToDto()); // Retorna 201 com os detalhes do pedido criado
     }
 
     private long CalculateDeliveryFee(long subtotal) // Calcula a taxa de entrega (ainda não implementado)
     {
-        return subtotal> 1000 ? 0 : 500;
+        return subtotal > 1000 ? 0 : 500;
     }
 
     private List<OrderItem>? CreateOrderItems(List<BasketItem> items)
@@ -107,7 +108,7 @@ public class OrdersController(StoreContext context) : BaseApiController // Contr
         }
 
         return orderItems;
-    
+
     }
 }
 
