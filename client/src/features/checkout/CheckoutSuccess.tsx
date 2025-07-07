@@ -1,7 +1,7 @@
 import { Box, Button, Container, Divider, Paper, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { Order } from "../../app/models/order";
-import currencyFormat from "../../lib/util";
+import currencyFormat, { formatAddressString, formatPaymentString } from "../../lib/util";
 
 export default function CheckoutSuccess() {
   const { state } = useLocation();
@@ -9,19 +9,6 @@ export default function CheckoutSuccess() {
 
   if (!order) return <Typography>Problem accessing the order</Typography>;
 
-  const addressString = () => {
-    const address = order.shippingAddress;
-
-    return `${address?.name},${address?.line1},${address?.city},${address?.state},
-     ${address?.postal_code},${address?.country}`
-  }
-
-  const paymentString=()=>{
-    const card = order.paymentSummary;
-
-    return `${card?.brand?.toUpperCase()},**** **** **** ${card?.last4},
-    Exp:${card?.exp_month}/${card?.exp_year}`;
-  }
 
   return (
     <Container maxWidth="md">
@@ -53,7 +40,7 @@ export default function CheckoutSuccess() {
               Payment method
             </Typography>
             <Typography variant="body2" fontWeight="bold">
-              {paymentString()}
+              {formatPaymentString(order.paymentSummary)}
             </Typography>
           </Box>
 
@@ -63,7 +50,7 @@ export default function CheckoutSuccess() {
               Shipping address
             </Typography>
             <Typography variant="body2" fontWeight="bold">
-              {addressString()}
+              {formatAddressString(order.shippingAddress)}
             </Typography>
           </Box>
 
@@ -79,14 +66,24 @@ export default function CheckoutSuccess() {
         </Paper>
 
         <Box display="flex" justifyContent="flex-start" gap={2}>
-          <Button variant="contained" color="primary" component={Link}to={`/orders/${order.id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={`/orders/${order.id}`}
+          >
             View your order
           </Button>
-          <Button component={Link} to="/catalog" variant="outlined" color="primary">
+          <Button
+            component={Link}
+            to="/catalog"
+            variant="outlined"
+            color="primary"
+          >
             Continue shopping
           </Button>
-        </Box>  
+        </Box>
       </>
     </Container>
-  ) 
+  ); 
 }

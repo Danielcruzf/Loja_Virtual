@@ -11,6 +11,7 @@ import {
 import { useFetchOrdersQuery } from "./orderApi";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import currencyFormat from "../../lib/util";
 
 export default function OrdersPage() {
   const { data: orders, isLoading } = useFetchOrdersQuery();
@@ -36,20 +37,21 @@ export default function OrdersPage() {
           </TableHead>
           <TableBody>
             {orders.map((order) => (
-              <TableRow 
-               key={order.id} 
-               hover 
-               onClick={() => navigate(`/order/${order.id}`)}
-               style={{cursor:'pointer'}}
-              
+              <TableRow
+                key={order.id}
+                hover
+                onClick={() => navigate(`/order/${order.id}`)}
+                style={{ cursor: "pointer" }}
               >
-               <TableCell align="center"># {order.id}</TableCell>
-               <TableCell>{format(order.orderDate, 'dd MMM yyyy')}</TableCell>
+                <TableCell align="center"># {order.id}</TableCell>
+                <TableCell>{format(order.orderDate, "dd MMM yyyy")}</TableCell>
+                <TableCell>{currencyFormat(order.total)}</TableCell>
+                <TableCell>{order.orderStatus}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </Paper>
     </Container>
-  )
+  );
 }

@@ -5,10 +5,13 @@ using API.Extensions;
 using API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 
 namespace API.Controllers;
 
-public class PaymentsController(PaymentsService paymentsService, StoreContext context) : BaseApiController
+public class PaymentsController(PaymentsService paymentsService,
+StoreContext context, IConfiguration config, ILogger<PaymentsController>logger)
+ : BaseApiController
 {
     [Authorize]
     [HttpPost]
@@ -34,11 +37,70 @@ public class PaymentsController(PaymentsService paymentsService, StoreContext co
 
         }
 
-        
+
 
 
         return Ok(basket.ToDto());
 
     }
+
+    [HttpPost("webhook")]
+    public async Task<IActionResult> StripeWebhook()
+    {
+        var json = await new StreamReader(Request.Body).ReadToEndAsync();
+
+        try
+        {
+            var stripeEvent = ConstructStripeEvent(json);
+
+            if (stripeEvent.Data.Object is not PaymentIntent intent)
+            {
+                return BadRequest("Invalid event data");
+            }
+
+            if (intent.Status == "succeeded") await HandlePaymentIntentSucceeded(intent);
+
+            else await HandlePaymentIntentFailed(intent);
+
+            return Ok();
+
+
+        }
+        catch (StripeException ex)
+        {
+            logger.LogError(ex, "Stripe Webhoook error");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Webhook error");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "an Unexpected error has occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Unexpected error");
+        }
+    }
+
+    private async Task HandlePaymentIntentFailed(PaymentIntent intent)
+    {
+        throw new NotImplementedException();
+    }
+
+    private async Task HandlePaymentIntentSucceeded(PaymentIntent intent)
+    {
+        throw new NotImplementedException();
+    }
+
+    private Event ConstructStripeEvent(string json)
+    {
+        try
+        {
+            return EventUtility.ConstructEvent(json,
+            Request.Headers["Stripe-Signature"],config["StripeSettings:WhSecret"]);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to construct stripe event");
+            throw new StripeException("Inavalid singnature");
+        }
+    }
+
 }
 
