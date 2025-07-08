@@ -4,7 +4,8 @@ public enum OrderStatus
 {
     Pending,
     PaymentReceived,
-    PaymentFailed
+    PaymentFailed,
+    PaymentMismatch
 }
 /*
 Esses valores ajudam a representar de forma clara e segura o estado de um pedido em um sistema,

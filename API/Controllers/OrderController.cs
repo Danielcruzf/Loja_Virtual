@@ -54,21 +54,29 @@ public class OrdersController(StoreContext context) : BaseApiController // Contr
         var subtotal = items.Sum(x => x.Price * x.Quantity); // Calcula o subtotal do pedido
         var deliveryFee = CalculateDeliveryFee(subtotal); // Calcula a taxa de entrega
 
-        var order = new Order // Cria o objeto pedido
+        var order = await context.Orders
+        .Include(x => x.OrderItems)
+        .FirstOrDefaultAsync(x => x.PaymentIntentId == basket.PaymentIntentId);
+
+        if (order == null)
         {
-            OrderItems = items, // Define os itens do pedido
-            BuyerEmail = User.GetUsername(), // Define o e-mail do comprador
-            ShippingAddress = orderDto.ShippingAddress, // Define o endereço de entrega
-            DeliveryFee = deliveryFee, // Define a taxa de entrega
-            Subtotal = subtotal, // Define o subtotal
-            PaymentSummary = orderDto.PaymentSummary, // Define o resumo do pagamento
-            PaymentIntentId = basket.PaymentIntentId // Define o ID da intenção de pagamento
-        };
+            order = new Order // Cria o objeto pedido
+            {
+                OrderItems = items, // Define os itens do pedido
+                BuyerEmail = User.GetUsername(), // Define o e-mail do comprador
+                ShippingAddress = orderDto.ShippingAddress, // Define o endereço de entrega
+                DeliveryFee = deliveryFee, // Define a taxa de entrega
+                Subtotal = subtotal, // Define o subtotal
+                PaymentSummary = orderDto.PaymentSummary, // Define o resumo do pagamento
+                PaymentIntentId = basket.PaymentIntentId // Define o ID da intenção de pagamento
+            };
+            context.Orders.Add(order); // Adiciona o pedido ao contexto do banco
+        }
+        else
+        {
+            order.OrderItems = items;
+         }
 
-        context.Orders.Add(order); // Adiciona o pedido ao contexto do banco
-
-        context.Baskets.Remove(basket); // Remove o carrinho do contexto (consumido)
-        Response.Cookies.Delete("basketId"); // Remove o cookie do carrinho
 
         var result = await context.SaveChangesAsync() > 0; // Salva as alterações no banco
 
