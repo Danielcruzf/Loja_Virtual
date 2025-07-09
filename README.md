@@ -61,7 +61,7 @@ Uma aplicação de e-commerce completa, composta por um back-end em ASP.NET Core
 
 ```mermaid
 graph TD
-  user[Usuário] --> frontend[Loja Virtual (React)]
+  user[Usuário] --> frontend[Loja Virtual React]
   admin[Administrador] --> frontend
   frontend --> api[API ASP.NET Core]
   api --> db[(SQL Server)]
