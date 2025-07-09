@@ -43,7 +43,7 @@ export const baseQueryWithErrorHandling = async (
   const router = getNavigate(); 
 
   api.dispatch(StartLoading());
-  await sleep();
+  if(import.meta.env.DEV)await sleep();
   const result = await customBaseQuery(args, api, extraOptions);
   api.dispatch(StopLoading());
 

@@ -24,7 +24,27 @@ public class DbInitializer
 
     private static async Task SeedData(StoreContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
-        context.Database.Migrate();
+        try
+        {
+            context.Database.Migrate();
+        }
+        catch (Microsoft.Data.SqlClient.SqlException ex) when (ex.Number == 4060) // Cannot open database requested by the login. The login failed.
+        {
+            // Tenta criar o banco de dados manualmente
+            var databaseName = context.Database.GetDbConnection().Database;
+            var connectionString = context.Database.GetDbConnection().ConnectionString.Replace($"Database={databaseName}", "Database=master");
+            using (var masterConnection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            {
+                masterConnection.Open();
+                using (var command = masterConnection.CreateCommand())
+                {
+                    command.CommandText = $"CREATE DATABASE [{databaseName}]";
+                    command.ExecuteNonQuery();
+                }
+            }
+            // Tenta migrar novamente
+            context.Database.Migrate();
+        }
 
         var roles = new[] { "Member", "Admin" };
 

@@ -25,7 +25,7 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginSchema) => {
     await login(data);
     navigate('/catalog');
-  };
+  }
 
   return (
     <Container component={Paper} maxWidth='sm' sx={{ borderRadius: 3 }}>

@@ -13,9 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+
 //Serviço de conexão ao Banco de Dados
 builder.Services.AddDbContext<StoreContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddCors();// Configuração de CORS para permitir requisições de origens específicas
@@ -34,7 +35,13 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.(Middleware)
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000"));
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseCors(opt =>
+opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000"
+));
 
 app.UseAuthentication();//validação de usuário
 app.UseAuthorization();//validação de autorização
@@ -43,6 +50,7 @@ app.MapControllers();
 
 app.MapGroup("api").MapIdentityApi<User>();// MapIdentityApi<User> é um método de extensão que mapeia os endpoints de identidade para a API, permitindo operações como registro, login e gerenciamento de usuários.
 
+app.MapFallbackToController("Index", "Fallback");// Rota de fallback para servir o arquivo index.html quando nenhuma rota correspondente for encontrada
 
 await DbInitializer.InitDb(app);// Inicialização do banco de dados
 
