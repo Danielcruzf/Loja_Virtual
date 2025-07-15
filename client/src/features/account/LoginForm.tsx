@@ -1,7 +1,7 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Box, Container, Paper, Typography, TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link /*,useLocation*/, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./accountApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,7 +15,7 @@ type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const [login, { isLoading }] = useLoginMutation();
-  const location = useLocation();
+  //const location = useLocation();//essa linha esta dando erro 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
     mode: 'onTouched',
     resolver: zodResolver(loginSchema),
