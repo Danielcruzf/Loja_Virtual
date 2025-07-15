@@ -1,1 +1,4 @@
-{}
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/a51f8a80-21dc-49b9-a4d0-5baf22fd718b/resourceGroups/restore-rg-v2/providers/Microsoft.Web/sites/loja-virtual-sql",
+    "appService.deploySubpath": "API\\bin\\Publish"
+}
