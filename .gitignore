@@ -507,5 +507,3 @@ client/build/
 Thumbs.db
 API/appsettings.json
 API/appsettings.Development.json
-
-client/.env.production
