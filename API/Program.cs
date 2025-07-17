@@ -6,6 +6,7 @@ using API.Services;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<StoreContext>(options =>
 
 
 builder.Services.AddCors();// Configuração de CORS para permitir requisições de origens específicas
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program).Assembly));// Configuração do AutoMapper para mapeamento de objetos
 builder.Services.AddTransient<ExceptionMiddleware>();// Middleware para tratamento de exceções
 builder.Services.AddScoped<PaymentsService>();// Serviço de pagamentos
 

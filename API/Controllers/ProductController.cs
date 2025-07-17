@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using API.Extensions;
 using API.RequestHelpers;
 using Microsoft.AspNetCore.Http.Features;
+using API.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace API.Controllers
 {
 
-    public class ProductController(StoreContext context) : BaseApiController //CRUD
+    public class ProductController(StoreContext context, IMapper mapper) : BaseApiController //CRUD
     {
         [HttpGet]
 
@@ -39,7 +42,7 @@ namespace API.Controllers
 
             return product;
         }
-        [HttpGet("filters")] 
+        [HttpGet("filters")]
         public async Task<ActionResult<object>> GetFilters()
         {
             var brands = await context.Products.Select(x => x.Brand).Distinct().ToListAsync();
@@ -47,5 +50,35 @@ namespace API.Controllers
 
             return Ok(new { brands, types });
         }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
+        {
+            var product = mapper.Map<Product>(productDto);
+
+            context.Products.Add(product);
+
+            var result = await context.SaveChangesAsync() > 0;
+
+            if (result) return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            return BadRequest("Problem creating product");
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var product = await context.Products.FindAsync(updateProductDto.Id);
+
+            if (product == null) return NotFound();
+
+            mapper.Map(updateProductDto, product);
+
+            var result = await context.SaveChangesAsync() > 0;
+
+            if (result) return NoContent();
+            
+            return BadRequest("Problem updating product");
+        }
+
     }
 }
