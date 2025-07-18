@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Http.Features;
 using API.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using API.Services;
 
 namespace API.Controllers
 {
 
-    public class ProductController(StoreContext context, IMapper mapper) : BaseApiController //CRUD
+    public class ProductController(StoreContext context, IMapper mapper,
+    ImageService imageService) : BaseApiController //CRUD
     {
         [HttpGet]
 
@@ -50,11 +52,23 @@ namespace API.Controllers
 
             return Ok(new { brands, types });
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
         {
             var product = mapper.Map<Product>(productDto);
+
+            if (productDto.File != null)
+            {
+                var imageResult = await imageService.AddImageAsync(productDto.File);
+                if (imageResult.Error != null)
+                {
+                    return BadRequest(imageResult.Error.Message);
+                }
+                product.PictureUrl = imageResult.SecureUrl.AbsoluteUri;
+                product.publicId = imageResult.PublicId;
+            }
 
             context.Products.Add(product);
 
@@ -63,6 +77,7 @@ namespace API.Controllers
             if (result) return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
             return BadRequest("Problem creating product");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult> UpdateProduct(UpdateProductDto updateProductDto)
@@ -73,12 +88,29 @@ namespace API.Controllers
 
             mapper.Map(updateProductDto, product);
 
+            if (updateProductDto.File != null)
+            {
+                var imageResult = await imageService.AddImageAsync(updateProductDto.File);
+
+                if (imageResult.Error != null)
+                    return BadRequest(imageResult.Error.Message);
+
+                if (!string.IsNullOrEmpty(product.publicId))
+                    await imageService.DeleteImageAsync(product.publicId);
+
+                product.PictureUrl = imageResult.SecureUrl.AbsoluteUri;
+                product.publicId = imageResult.PublicId;
+            }
+                
+            
+
             var result = await context.SaveChangesAsync() > 0;
 
             if (result) return NoContent();
 
             return BadRequest("Problem updating product");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
@@ -86,6 +118,10 @@ namespace API.Controllers
             var product = await context.Products.FindAsync(id);
 
             if (product == null) return NotFound();
+            
+            if (!string.IsNullOrEmpty(product.publicId))
+                await imageService.DeleteImageAsync(product.publicId);
+
 
             context.Products.Remove(product);
 

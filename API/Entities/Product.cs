@@ -12,5 +12,5 @@ public class Product
     public required string Type { get; set; }
     public required string Brand { get; set; }
     public int QuantityInStock { get; set; }//sem modificador de acesso 'requerid' que ira preencher o valor com 0
-
+    public string? publicId { get; set; }
 }

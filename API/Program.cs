@@ -2,6 +2,7 @@ using System.Configuration;
 using API.Data;
 using API.Entities;
 using API.Middleware;
+using API.RequestHelpers;
 using API.Services;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Identity;
@@ -11,19 +12,16 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. - Serviços
-
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloundinary"));
 builder.Services.AddControllers();
-
-
-//Serviço de conexão ao Banco de Dados
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 builder.Services.AddCors();// Configuração de CORS para permitir requisições de origens específicas
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program).Assembly));// Configuração do AutoMapper para mapeamento de objetos
 builder.Services.AddTransient<ExceptionMiddleware>();// Middleware para tratamento de exceções
 builder.Services.AddScoped<PaymentsService>();// Serviço de pagamentos
+builder.Services.AddScoped<ImageService>();
 
 // Configuração de endpoints de identidade 
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
