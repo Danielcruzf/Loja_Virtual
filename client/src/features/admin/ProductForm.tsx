@@ -93,15 +93,15 @@ useEffect(() => {
         </Grid>
         <Grid size={12} display="flex" justifyContent="space-between" sx={{ mt: 3 }}>
           <AppDropzone name='file' control={control}/>
-          {watchFile ? (
+          {watchFile?.preview? (
             <img
               src={watchFile.preview}
               alt="Preview of image"
               style={{ width: 200, height: 200, objectFit: 'cover' }}
             />
-          ):(
+          ):product?.pictureUrl?(
             <img src={product?.pictureUrl} alt="Preview of image" style={{ maxWidth: 200}}/> 
-          )}
+          ):null}
         </Grid>
 
         <Box display="flex" justifyContent="space-between" alignItems="center">
